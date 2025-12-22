@@ -1,3 +1,10 @@
+<style>
+    .pun {color: #858585;}
+    .pln {color: #569cd6;}
+    .str {color: #ce9178;}
+    .lit {color: #fff;}
+</style>
+
 <nav aria-label="breadcrumb">
   <ul>
     <li><a href="#">Home</a></li>
@@ -12,4 +19,16 @@
         <button onclick="count++">+</button>
         <button onclick="count--">-</button>
     </div>
+    <footer>
+        <details open>
+            <summary>Code</summary>
+            <pre><code class="prettyprint lang-js">&lt;h1 data-bind="count" style="text-align: center;"&gt;0&lt;/h1&gt;
+&lt;div role="group"&gt;
+    &lt;button onclick="count++"&gt;+&lt;/button&gt;
+    &lt;button onclick="count--"&gt;-&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </details>
+    </footer>
 </article>
+
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
