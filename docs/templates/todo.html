@@ -1,0 +1,15 @@
+<nav aria-label="breadcrumb">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li>Todo</li>
+  </ul>
+</nav>
+
+<article style="max-width: 400px;">
+    <header><strong>Todo list</strong></header>
+    <input data-bind="todo" placeholder="Add a todo">
+    <button onclick="todos = [...todos, todo]">Add</button>
+    <footer>
+        <p>Todos: <span data-bind="todos">[]</span></p>
+    </footer>
+</article>
