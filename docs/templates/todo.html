@@ -1,3 +1,11 @@
+<style>
+    article {
+        max-width: 600px;
+    }
+    article header {
+        font-weight: bold;
+    }
+</style>
 <nav aria-label="breadcrumb">
   <ul>
     <li><a href="#">Home</a></li>
@@ -5,13 +13,14 @@
   </ul>
 </nav>
 
-<article style="max-width: 600px;">
-    <header><strong>Todo list</strong></header>
+<article>
+    <header>Todo list</header>
     <div class="example">
+<template data-bind="todos">[]</template>
 <input data-bind="todo" placeholder="Add a todo">
 <button onclick="todos = [...todos, todo]">Add</button>
 <hr>
-<p>Todos: <span data-bind="todos">[]</span></p>
+<p data-compute="computedTodos">`Todos: ${(todos || []).join(", ")}`</p>
     </div>
     <footer>
         <details>
