@@ -5,11 +5,29 @@
   </ul>
 </nav>
 
-<article style="max-width: 400px;">
+<article style="max-width: 600px;">
     <header><strong>Todo list</strong></header>
-    <input data-bind="todo" placeholder="Add a todo">
-    <button onclick="todos = [...todos, todo]">Add</button>
+    <div class="example">
+<input data-bind="todo" placeholder="Add a todo">
+<button onclick="todos = [...todos, todo]">Add</button>
+<hr>
+<p>Todos: <span data-bind="todos">[]</span></p>
+    </div>
     <footer>
-        <p>Todos: <span data-bind="todos">[]</span></p>
+        <details>
+            <summary>Code</summary>
+            <div class="code"></div>
+        </details>
     </footer>
 </article>
+
+<script type="module">
+    import { codeToHtml } from 'https://esm.sh/shiki@3.20.0'
+
+    const code = document.querySelector(".code")
+    const example = document.querySelector(".example")
+    code.innerHTML = await codeToHtml(example.innerHTML.trim(), {
+        lang: 'html',
+        theme: 'dark-plus'
+    })
+</script>

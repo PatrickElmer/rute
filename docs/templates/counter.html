@@ -1,10 +1,3 @@
-<style>
-    .pun {color: #858585;}
-    .pln {color: #569cd6;}
-    .str {color: #ce9178;}
-    .lit {color: #fff;}
-</style>
-
 <nav aria-label="breadcrumb">
   <ul>
     <li><a href="#">Home</a></li>
@@ -14,21 +7,30 @@
 
 <article style="max-width: 400px;">
     <header><strong>Counter</strong></header>
-    <h1 data-bind="count" style="text-align: center;">0</h1>
-    <div role="group">
-        <button onclick="count++">+</button>
-        <button onclick="count--">-</button>
+    <div class="example">
+<h1 data-bind="count" style="text-align: center;">0</h1>
+<div role="group">
+    <button onclick="count++"><i data-feather="plus"></i></button>
+    <button onclick="count--"><i data-feather="minus"></i></button>
+</div>
     </div>
     <footer>
-        <details open>
+        <details>
             <summary>Code</summary>
-            <pre><code class="prettyprint lang-js">&lt;h1 data-bind="count" style="text-align: center;"&gt;0&lt;/h1&gt;
-&lt;div role="group"&gt;
-    &lt;button onclick="count++"&gt;+&lt;/button&gt;
-    &lt;button onclick="count--"&gt;-&lt;/button&gt;
-&lt;/div&gt;</code></pre>
+            <div class="code"></div>
         </details>
     </footer>
 </article>
 
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script type="module">
+    feather.replace()
+    import { codeToHtml } from 'https://esm.sh/shiki@3.20.0'
+
+    const code = document.querySelector(".code")
+    const example = document.querySelector(".example")
+    code.innerHTML = await codeToHtml(example.innerHTML.trim(), {
+        lang: 'html',
+        theme: 'dark-plus'
+    })
+</script>
