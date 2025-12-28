@@ -1,6 +1,6 @@
 <style>
     article {
-        max-width: 600px;
+        max-width: 400px;
     }
     article header {
         font-weight: bold;
@@ -10,18 +10,14 @@
 <nav aria-label="breadcrumb">
   <ul>
     <li><a href="#">Home</a></li>
-    <li>Todo</li>
+    <li>Dice</li>
   </ul>
 </nav>
 
 <article>
-    <header>Todo list</header>
+    <header>Dice</header>
     <div class="example">
-<template data-bind="todos">[]</template>
-<input data-bind="todo" placeholder="Add a todo">
-<button onclick="todos = [...todos, todo]">Add</button>
-<hr>
-<p data-compute="computedTodos">`Todos: ${(todos || []).join(", ")}`</p>
+<h1 role="button" data-bind="rolled" onclick="rolled = Math.floor(Math.random() * 6) + 1"></h1>
     </div>
     <footer>
         <details>
