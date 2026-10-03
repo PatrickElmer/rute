@@ -110,10 +110,10 @@ class Rute {
               _this.computedObservers[name] = new Set()
             _this.computedObservers[name].add(_this._tmpElement)
           }
-          return JSON.parse(globalThis.localStorage.getItem(key))
+          return _this.getStored(key)
         },
         set (value) {
-          globalThis.localStorage.setItem(key, JSON.stringify(value))
+          _this.setStored(key, value)
           _this.observers[name].forEach(
             element =>
               (element[element.value === undefined ? 'textContent' : 'value'] =
