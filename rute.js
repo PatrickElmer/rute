@@ -1,3 +1,6 @@
+// Indirect eval runs in global scope, so expressions can't see local variables
+const evaluate = expr => (0, eval)(expr)
+
 class Rute {
   constructor (root = undefined) {
     if (Rute._instance) return Rute._instance
@@ -76,7 +79,7 @@ class Rute {
       const name = element.dataset.compute
       this.computed[name] = element.textContent
       try {
-        element.textContent = eval(element.textContent)
+        element.textContent = evaluate(element.textContent)
       } catch (error) {
         console.error(error)
       }
@@ -123,7 +126,7 @@ class Rute {
           if (_this.computedObservers[name] !== undefined) {
             for (let element of _this.computedObservers[name]) {
               try {
-                element.textContent = eval(
+                element.textContent = evaluate(
                   _this.computed[element.dataset.compute]
                 )
               } catch (error) {
