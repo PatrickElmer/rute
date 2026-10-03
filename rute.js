@@ -44,20 +44,17 @@ class Rute {
     return `rute_hash_${this.hash}_${name}`
   }
   getStored (key) {
-    return JSON.parse(globalThis.localStorage.getItem(key))
+    const raw = globalThis.localStorage.getItem(key)
+    if (raw === null) return null
+    try {
+      return JSON.parse(raw)
+    } catch {
+      return raw
+    }
   }
   setStored (key, value) {
-    globalThis.localStorage.setItem(key, JSON.stringify(value))
-  }
-
-  get templateKey () {
-    return `rute_template_${this.hash}`
-  }
-  get template () {
-    return JSON.parse(globalThis.localStorage.getItem(this.templateKey))
-  }
-  set template (value) {
-    globalThis.localStorage.setItem(this.templateKey, JSON.stringify(value))
+    if (value === undefined) globalThis.localStorage.removeItem(key)
+    else globalThis.localStorage.setItem(key, JSON.stringify(value))
   }
 
   clear () {
