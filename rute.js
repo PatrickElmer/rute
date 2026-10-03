@@ -34,9 +34,6 @@ class Rute {
     this.computed = {}
     this.computedObservers = {}
     this._tmpElement = null
-
-    // Debugging
-    // this.clear()
   }
   get hash () {
     return (
@@ -64,7 +61,9 @@ class Rute {
   }
 
   clear () {
-    globalThis.localStorage.clear()
+    for (const key of Object.keys(globalThis.localStorage)) {
+      if (key.startsWith('rute_')) globalThis.localStorage.removeItem(key)
+    }
   }
   updateContent (content) {
     this.makeReactive(content.querySelectorAll('[data-bind]'))
