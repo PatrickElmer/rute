@@ -35,10 +35,12 @@ class Rute {
     this.computedObservers = {}
     this._tmpElement = null
   }
+  static isInvalidRoute (route) {
+    return /^$|[%\\:?#\s]/.test(route) || route.split('/').includes('..')
+  }
   get hash () {
-    return (
-      globalThis.location.hash.substring(1).replace(/^\//, '') || this.default
-    )
+    const route = globalThis.location.hash.substring(1).replace(/^\/+/, '')
+    return Rute.isInvalidRoute(route) ? this.default : route
   }
   hashKey (name) {
     return `rute_hash_${this.hash}_${name}`
