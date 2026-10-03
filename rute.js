@@ -65,8 +65,8 @@ class Rute {
   updateContent (content) {
     this.makeReactive(content.querySelectorAll('[data-bind]'))
     this.createComputed(content.querySelectorAll('[data-compute]'))
-    this.root.scrollTo(0, 0)
     this.root.replaceChildren(content)
+    globalThis.scrollTo(0, 0)
   }
   createComputed (elements) {
     for (const element of elements) {
