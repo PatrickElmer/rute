@@ -135,7 +135,7 @@ class Rute {
     }
   }
   makeReactive (elements) {
-    for (let element of elements) {
+    for (const element of elements) {
       const name = element.dataset.bind
       this.reactive(name, element)
     }
