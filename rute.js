@@ -34,6 +34,7 @@ class Rute {
     this.computed = {}
     this.computedObservers = {}
     this._tmpElement = null
+    this._globals = new Set()
   }
   static isInvalidRoute (route) {
     return /^$|[%\\:?#\s]/.test(route) || route.split('/').includes('..')
@@ -102,7 +103,12 @@ class Rute {
       value = this.getStored(key)
     }
     element[propertyName] = value
-    if (globalThis[name] === undefined) {
+    if (!this._globals.has(name)) {
+      if (Object.hasOwn(globalThis, name)) {
+        console.error(`rute: data-bind="${name}" clashes with an existing global`)
+        return
+      }
+      this._globals.add(name)
       Object.defineProperty(globalThis, name, {
         configurable: true,
         get: () => {
@@ -142,9 +148,8 @@ class Rute {
     }
   }
   reset () {
-    for (const key in this.observers) {
-      delete globalThis[key]
-    }
+    for (const name of this._globals) delete globalThis[name]
+    this._globals.clear()
     this.observers = {}
     this.computed = {}
     this.computedObservers = {}
