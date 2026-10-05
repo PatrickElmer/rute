@@ -176,7 +176,7 @@ class Rute {
 
 const rute = new Rute()
 
-async function ruteOnRouteChange () {
+function ruteOnRouteChange () {
   rute.init()
 }
 
