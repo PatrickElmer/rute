@@ -1,5 +1,11 @@
-// Indirect eval runs in global scope, so expressions can't see local variables
-const evaluate = expr => (0, eval)(expr)
+const parse = text => {
+  try {
+    return JSON.parse(text)
+  } catch {
+    return text
+  }
+}
+const prop = element => (element.value === undefined ? 'textContent' : 'value')
 
 class Rute {
   constructor (root = undefined) {
@@ -47,13 +53,7 @@ class Rute {
     return `rute_hash_${this.hash}_${name}`
   }
   getStored (key) {
-    const raw = globalThis.localStorage.getItem(key)
-    if (raw === null) return null
-    try {
-      return JSON.parse(raw)
-    } catch {
-      return raw
-    }
+    return parse(globalThis.localStorage.getItem(key))
   }
   setStored (key, value) {
     if (value === undefined) globalThis.localStorage.removeItem(key)
@@ -66,22 +66,26 @@ class Rute {
     }
   }
   updateContent (content) {
-    this.makeReactive(content.querySelectorAll('[data-bind]'))
+    content
+      .querySelectorAll('[data-bind]')
+      .forEach(element => this.reactive(element.dataset.bind, element))
     this.createComputed(content.querySelectorAll('[data-compute]'))
     this.root.replaceChildren(content)
     globalThis.scrollTo(0, 0)
   }
+  // Indirect eval runs in global scope, so expressions can't see locals
+  render (element) {
+    try {
+      element.textContent = (0, eval)(this.computed[element.dataset.compute])
+    } catch (error) {
+      console.error(error)
+    }
+  }
   createComputed (elements) {
     for (const element of elements) {
       this._tmpElement = element
-
-      const name = element.dataset.compute
-      this.computed[name] = element.textContent
-      try {
-        element.textContent = evaluate(element.textContent)
-      } catch (error) {
-        console.error(error)
-      }
+      this.computed[element.dataset.compute] = element.textContent
+      this.render(element)
       this._tmpElement = null
     }
   }
@@ -89,20 +93,11 @@ class Rute {
     if (!this.observers[name]) this.observers[name] = new Set()
     this.observers[name].add(element)
 
-    const propertyName = element.value === undefined ? 'textContent' : 'value'
     const key = this.hashKey(name)
-
-    let value = this.getStored(key)
-    if (value === null) {
-      try {
-        value = JSON.parse(element[propertyName])
-      } catch (error) {
-        value = element[propertyName]
-      }
-      this.setStored(key, value)
-      value = this.getStored(key)
+    if (this.getStored(key) === null) {
+      this.setStored(key, parse(element[prop(element)]))
     }
-    element[propertyName] = value
+    element[prop(element)] = this.getStored(key)
     if (!this._globals.has(name)) {
       if (Object.hasOwn(globalThis, name)) {
         console.error(`rute: data-bind="${name}" clashes with an existing global`)
@@ -122,29 +117,11 @@ class Rute {
         set: value => {
           this.setStored(key, value)
           this.observers[name].forEach(
-            element =>
-              (element[element.value === undefined ? 'textContent' : 'value'] =
-                value)
+            element => (element[prop(element)] = value)
           )
-          if (this.computedObservers[name] !== undefined) {
-            for (let element of this.computedObservers[name]) {
-              try {
-                element.textContent = evaluate(
-                  this.computed[element.dataset.compute]
-                )
-              } catch (error) {
-                console.error(error)
-              }
-            }
-          }
+          this.computedObservers[name]?.forEach(element => this.render(element))
         }
       })
-    }
-  }
-  makeReactive (elements) {
-    for (const element of elements) {
-      const name = element.dataset.bind
-      this.reactive(name, element)
     }
   }
   reset () {
@@ -164,13 +141,9 @@ class Rute {
     this.updateContent(fragment)
   }
   async content () {
-    let res
-    try {
-      res = await fetch(this.dir + this.hash + this.ext)
-    } catch (error) {
-      console.error(error)
-      return this.page404 || '<h1>Network error</h1>'
-    }
+    const url = this.dir + this.hash + this.ext
+    const res = await fetch(url).catch(console.error)
+    if (!res) return this.page404 || '<h1>Network error</h1>'
     if (!res.ok)
       return this.page404 || `<h1>${res.status}</h1><p>${res.statusText}</p>`
     let content = await res.text()
@@ -182,13 +155,10 @@ class Rute {
 }
 
 const rute = new Rute()
+const onRouteChange = () => rute.init()
 
-function ruteOnRouteChange () {
-  rute.init()
-}
-
-globalThis.addEventListener('DOMContentLoaded', ruteOnRouteChange)
-globalThis.addEventListener('hashchange', ruteOnRouteChange)
+globalThis.addEventListener('DOMContentLoaded', onRouteChange)
+globalThis.addEventListener('hashchange', onRouteChange)
 
 globalThis.addEventListener('input', event => {
     if (event.target.dataset.bind === undefined) return
