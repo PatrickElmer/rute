@@ -8,7 +8,7 @@ const parse = text => {
 const prop = element => (element.value === undefined ? 'textContent' : 'value')
 
 class Rute {
-  constructor (root = undefined) {
+  constructor(root = undefined) {
     if (Rute._instance) return Rute._instance
     Rute._instance = this
 
@@ -42,30 +42,30 @@ class Rute {
     this._tmpElement = null
     this._globals = new Set()
   }
-  static isInvalidRoute (route) {
+  static isInvalidRoute(route) {
     return /^$|[%\\:?#\s]/.test(route) || route.split('/').includes('..')
   }
-  get hash () {
+  get hash() {
     const route = globalThis.location.hash.substring(1).replace(/^\/+/, '')
     return Rute.isInvalidRoute(route) ? this.default : route
   }
-  hashKey (name) {
+  hashKey(name) {
     return `rute_hash_${this.hash}_${name}`
   }
-  getStored (key) {
+  getStored(key) {
     return parse(globalThis.localStorage.getItem(key))
   }
-  setStored (key, value) {
+  setStored(key, value) {
     if (value === undefined) globalThis.localStorage.removeItem(key)
     else globalThis.localStorage.setItem(key, JSON.stringify(value))
   }
 
-  clear () {
+  clear() {
     for (const key of Object.keys(globalThis.localStorage)) {
       if (key.startsWith('rute_')) globalThis.localStorage.removeItem(key)
     }
   }
-  updateContent (content) {
+  updateContent(content) {
     content
       .querySelectorAll('[data-bind]')
       .forEach(element => this.reactive(element.dataset.bind, element))
@@ -73,15 +73,14 @@ class Rute {
     this.root.replaceChildren(content)
     globalThis.scrollTo(0, 0)
   }
-  // Indirect eval runs in global scope, so expressions can't see locals
-  render (element) {
+  render(element) {
     try {
       element.textContent = (0, eval)(this.computed[element.dataset.compute])
     } catch (error) {
       console.error(error)
     }
   }
-  createComputed (elements) {
+  createComputed(elements) {
     for (const element of elements) {
       this._tmpElement = element
       this.computed[element.dataset.compute] = element.textContent
@@ -89,7 +88,7 @@ class Rute {
       this._tmpElement = null
     }
   }
-  reactive (name, element) {
+  reactive(name, element) {
     if (!this.observers[name]) this.observers[name] = new Set()
     this.observers[name].add(element)
 
@@ -124,7 +123,7 @@ class Rute {
       })
     }
   }
-  reset () {
+  reset() {
     for (const name of this._globals) {
       delete globalThis[name]
     }
@@ -133,14 +132,14 @@ class Rute {
     this.computed = {}
     this.computedObservers = {}
   }
-  async init () {
+  async init() {
     this.reset()
     const fragment = document
       .createRange()
       .createContextualFragment(await this.content())
     this.updateContent(fragment)
   }
-  async content () {
+  async content() {
     const url = this.dir + this.hash + this.ext
     const res = await fetch(url).catch(console.error)
     if (!res) return this.page404 || '<h1>Network error</h1>'
@@ -161,6 +160,6 @@ globalThis.addEventListener('DOMContentLoaded', onRouteChange)
 globalThis.addEventListener('hashchange', onRouteChange)
 
 globalThis.addEventListener('input', event => {
-    if (event.target.dataset.bind === undefined) return
-    globalThis[event.target.dataset.bind] = event.target.value
+  if (event.target.dataset.bind === undefined) return
+  globalThis[event.target.dataset.bind] = event.target.value
 })
