@@ -185,7 +185,5 @@ globalThis.addEventListener('hashchange', ruteOnRouteChange)
 
 globalThis.addEventListener('input', event => {
     if (event.target.dataset.bind === undefined) return
-    const name = event.target.dataset.bind
-    rute.setStored(rute.hashKey(name), event.target.value)
-    globalThis[name] = event.target.value
+    globalThis[event.target.dataset.bind] = event.target.value
 })
