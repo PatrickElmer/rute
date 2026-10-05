@@ -148,7 +148,9 @@ class Rute {
     }
   }
   reset () {
-    for (const name of this._globals) delete globalThis[name]
+    for (const name of this._globals) {
+      delete globalThis[name]
+    }
     this._globals.clear()
     this.observers = {}
     this.computed = {}
