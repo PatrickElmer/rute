@@ -22,12 +22,12 @@ class Rute {
       this.default = this.root.getAttribute('default') ?? 'index'
       this.dir = this.root.getAttribute('dir') ?? 'templates/'
       this.ext = this.root.getAttribute('ext') ?? '.html'
-      this.page_404 = this.root.getAttribute('404')
+      this.page404 = this.root.getAttribute('404')
     } else {
       this.default = 'index'
       this.dir = 'templates/'
       this.ext = '.html'
-      this.page_404 = undefined
+      this.page404 = undefined
     }
 
     this.observers = {}
@@ -156,9 +156,15 @@ class Rute {
     this.updateContent(fragment)
   }
   async content () {
-    const res = await fetch(this.dir + this.hash + this.ext)
+    let res
+    try {
+      res = await fetch(this.dir + this.hash + this.ext)
+    } catch (error) {
+      console.error(error)
+      return this.page404 || '<h1>Network error</h1>'
+    }
     if (!res.ok)
-      return this.page_404 || `<h1>${res.status}</h1><p>${res.statusText}</p>`
+      return this.page404 || `<h1>${res.status}</h1><p>${res.statusText}</p>`
     let content = await res.text()
     Object.values(this.conversions).forEach(fn => {
       content = fn(content)
