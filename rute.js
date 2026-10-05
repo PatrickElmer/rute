@@ -103,29 +103,28 @@ class Rute {
     }
     element[propertyName] = value
     if (globalThis[name] === undefined) {
-      const _this = this
       Object.defineProperty(globalThis, name, {
         configurable: true,
-        get () {
-          if (_this._tmpElement) {
-            if (!_this.computedObservers[name])
-              _this.computedObservers[name] = new Set()
-            _this.computedObservers[name].add(_this._tmpElement)
+        get: () => {
+          if (this._tmpElement) {
+            if (!this.computedObservers[name])
+              this.computedObservers[name] = new Set()
+            this.computedObservers[name].add(this._tmpElement)
           }
-          return _this.getStored(key)
+          return this.getStored(key)
         },
-        set (value) {
-          _this.setStored(key, value)
-          _this.observers[name].forEach(
+        set: value => {
+          this.setStored(key, value)
+          this.observers[name].forEach(
             element =>
               (element[element.value === undefined ? 'textContent' : 'value'] =
                 value)
           )
-          if (_this.computedObservers[name] !== undefined) {
-            for (let element of _this.computedObservers[name]) {
+          if (this.computedObservers[name] !== undefined) {
+            for (let element of this.computedObservers[name]) {
               try {
                 element.textContent = evaluate(
-                  _this.computed[element.dataset.compute]
+                  this.computed[element.dataset.compute]
                 )
               } catch (error) {
                 console.error(error)
