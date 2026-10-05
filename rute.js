@@ -146,6 +146,8 @@ class Rute {
       delete globalThis[key]
     }
     this.observers = {}
+    this.computed = {}
+    this.computedObservers = {}
   }
   async init () {
     this.reset()
