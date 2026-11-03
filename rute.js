@@ -17,7 +17,7 @@ class Rute {
       }
     }
     this.observers = {}
-    this.computed = {}
+    this.computed = new WeakMap()
     this.computedObservers = {}
     this._tmpElement = null
     this._globals = new Set()
@@ -68,7 +68,7 @@ class Rute {
     const previous = this._tmpElement
     this._tmpElement = element
     try {
-      element.textContent = (0, eval)(this.computed[element.dataset.compute])
+      element.textContent = (0, eval)(this.computed.get(element))
     } catch (error) {
       console.error(error)
     }
@@ -76,7 +76,7 @@ class Rute {
   }
   createComputed(elements) {
     for (const element of elements) {
-      this.computed[element.dataset.compute] = element.textContent
+      this.computed.set(element, element.textContent)
       this.render(element)
     }
   }
@@ -119,7 +119,7 @@ class Rute {
     }
     this._globals.clear()
     this.observers = {}
-    this.computed = {}
+    this.computed = new WeakMap()
     this.computedObservers = {}
   }
   async init() {
