@@ -5,7 +5,8 @@ const parse = text => {
     return text
   }
 }
-const prop = element => (element.value === undefined ? 'textContent' : 'value')
+const prop = element =>
+  element.matches('input, textarea, select') ? 'value' : 'textContent'
 
 class Rute {
   constructor(root = undefined) {
