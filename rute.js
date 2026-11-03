@@ -9,33 +9,21 @@ const prop = element => (element.value === undefined ? 'textContent' : 'value')
 
 class Rute {
   constructor(root = undefined) {
-    if (Rute._instance) return Rute._instance
-    Rute._instance = this
-
     this.root =
       root ??
       document.querySelector('rute') ??
       document.getElementById('rute') ??
       document.body
-
     this.conversions = {
       test: content => {
         return content
       }
     }
-
-    if (this.root.getAttributeNames) {
-      this.default = this.root.getAttribute('default') ?? 'index'
-      this.dir = this.root.getAttribute('dir') ?? 'templates/'
-      this.ext = this.root.getAttribute('ext') ?? '.html'
-      this.page404 = this.root.getAttribute('404')
-    } else {
-      this.default = 'index'
-      this.dir = 'templates/'
-      this.ext = '.html'
-      this.page404 = undefined
-    }
-
+    const attr = name => this.root.getAttribute?.(name)
+    this.default = attr('default') ?? 'index'
+    this.dir = attr('dir') ?? 'templates/'
+    this.ext = attr('ext') ?? '.html'
+    this.page404 = attr('404')
     this.observers = {}
     this.computed = {}
     this.computedObservers = {}
@@ -59,7 +47,6 @@ class Rute {
     if (value === undefined) globalThis.localStorage.removeItem(key)
     else globalThis.localStorage.setItem(key, JSON.stringify(value))
   }
-
   clear() {
     for (const key of Object.keys(globalThis.localStorage)) {
       if (key.startsWith('rute_')) globalThis.localStorage.removeItem(key)
@@ -91,37 +78,35 @@ class Rute {
   reactive(name, element) {
     if (!this.observers[name]) this.observers[name] = new Set()
     this.observers[name].add(element)
-
     const key = this.hashKey(name)
     if (this.getStored(key) === null) {
       this.setStored(key, parse(element[prop(element)]))
     }
     element[prop(element)] = this.getStored(key)
-    if (!this._globals.has(name)) {
-      if (Object.hasOwn(globalThis, name)) {
-        console.error(`rute: data-bind="${name}" clashes with an existing global`)
-        return
-      }
-      this._globals.add(name)
-      Object.defineProperty(globalThis, name, {
-        configurable: true,
-        get: () => {
-          if (this._tmpElement) {
-            if (!this.computedObservers[name])
-              this.computedObservers[name] = new Set()
-            this.computedObservers[name].add(this._tmpElement)
-          }
-          return this.getStored(key)
-        },
-        set: value => {
-          this.setStored(key, value)
-          this.observers[name].forEach(
-            element => (element[prop(element)] = value)
-          )
-          this.computedObservers[name]?.forEach(element => this.render(element))
-        }
-      })
+    if (this._globals.has(name)) return
+    if (Object.hasOwn(globalThis, name)) {
+      console.error(`rute: data-bind="${name}" clashes with an existing global`)
+      return
     }
+    this._globals.add(name)
+    Object.defineProperty(globalThis, name, {
+      configurable: true,
+      get: () => {
+        if (this._tmpElement) {
+          if (!this.computedObservers[name])
+            this.computedObservers[name] = new Set()
+          this.computedObservers[name].add(this._tmpElement)
+        }
+        return this.getStored(key)
+      },
+      set: value => {
+        this.setStored(key, value)
+        this.observers[name].forEach(
+          element => (element[prop(element)] = value)
+        )
+        this.computedObservers[name]?.forEach(element => this.render(element))
+      }
+    })
   }
   reset() {
     for (const name of this._globals) {
