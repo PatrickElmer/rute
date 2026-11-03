@@ -64,18 +64,18 @@ class Rute {
     globalThis.scrollTo(0, 0)
   }
   render(element) {
+    this._tmpElement = element
     try {
       element.textContent = (0, eval)(this.computed[element.dataset.compute])
     } catch (error) {
       console.error(error)
     }
+    this._tmpElement = null
   }
   createComputed(elements) {
     for (const element of elements) {
-      this._tmpElement = element
       this.computed[element.dataset.compute] = element.textContent
       this.render(element)
-      this._tmpElement = null
     }
   }
   reactive(name, element) {
