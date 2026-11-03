@@ -65,13 +65,14 @@ class Rute {
     globalThis.scrollTo(0, 0)
   }
   render(element) {
+    const previous = this._tmpElement
     this._tmpElement = element
     try {
       element.textContent = (0, eval)(this.computed[element.dataset.compute])
     } catch (error) {
       console.error(error)
     }
-    this._tmpElement = null
+    this._tmpElement = previous
   }
   createComputed(elements) {
     for (const element of elements) {
