@@ -144,7 +144,11 @@ class Rute {
 const rute = new Rute()
 const onRouteChange = () => rute.init()
 
-globalThis.addEventListener('DOMContentLoaded', onRouteChange)
+if (document.readyState === 'loading') {
+  globalThis.addEventListener('DOMContentLoaded', onRouteChange)
+} else {
+  onRouteChange()
+}
 globalThis.addEventListener('hashchange', onRouteChange)
 
 globalThis.addEventListener('input', event => {
