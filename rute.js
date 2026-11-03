@@ -9,26 +9,28 @@ const prop = element => (element.value === undefined ? 'textContent' : 'value')
 
 class Rute {
   constructor(root = undefined) {
-    this.root =
-      root ??
-      document.querySelector('rute') ??
-      document.getElementById('rute') ??
-      document.body
+    this.root = root
     this.conversions = {
       test: content => {
         return content
       }
     }
-    const attr = name => this.root.getAttribute?.(name)
-    this.default = attr('default') ?? 'index'
-    this.dir = attr('dir') ?? 'templates/'
-    this.ext = attr('ext') ?? '.html'
-    this.page404 = attr('404')
     this.observers = {}
     this.computed = {}
     this.computedObservers = {}
     this._tmpElement = null
     this._globals = new Set()
+  }
+  setup() {
+    this.root ??=
+      document.querySelector('rute') ??
+      document.getElementById('rute') ??
+      document.body
+    const attr = name => this.root.getAttribute?.(name)
+    this.default ??= attr('default') ?? 'index'
+    this.dir ??= attr('dir') ?? 'templates/'
+    this.ext ??= attr('ext') ?? '.html'
+    this.page404 ??= attr('404')
   }
   static isInvalidRoute(route) {
     return /^$|[%\\:?#\s]/.test(route) || route.split('/').includes('..')
@@ -118,6 +120,7 @@ class Rute {
     this.computedObservers = {}
   }
   async init() {
+    this.setup()
     this.reset()
     const fragment = document
       .createRange()
