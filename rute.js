@@ -82,7 +82,7 @@ class Rute {
     if (!this.observers[name]) this.observers[name] = new Set()
     this.observers[name].add(element)
     const key = this.hashKey(name)
-    if (this.getStored(key) === null) {
+    if (globalThis.localStorage.getItem(key) === null) {
       this.setStored(key, parse(element[prop(element)]))
     }
     element[prop(element)] = this.getStored(key)
