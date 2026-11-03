@@ -21,6 +21,7 @@ class Rute {
     this.computedObservers = {}
     this._tmpElement = null
     this._globals = new Set()
+    if (document.readyState !== 'loading') this.setup()
   }
   setup() {
     this.root ??=
