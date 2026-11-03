@@ -155,6 +155,6 @@ if (document.readyState === 'loading') {
 globalThis.addEventListener('hashchange', onRouteChange)
 
 globalThis.addEventListener('input', event => {
-  if (event.target.dataset.bind === undefined) return
+  if (!rute._globals.has(event.target.dataset.bind)) return
   globalThis[event.target.dataset.bind] = event.target.value
 })
