@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rute.js tests</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/qunit@2.26.0/qunit/qunit.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <rute hidden dir="templates/"></rute>
+
+  <script src="https://cdn.jsdelivr.net/npm/qunit@2.26.0/qunit/qunit.js"></script>
+  <script>
+    // Stub fetch before rute.js loads: templates come from the tests, not the
+    // network, so this page also works when opened directly from disk.
+    globalThis.templates = {}
+    globalThis.requests = []
+    globalThis.fetch = async url => {
+      requests.push(url)
+      return url in templates
+        ? new Response(templates[url])
+        : new Response('', { status: 404, statusText: 'Not Found' })
+    }
+  </script>
+  <script src="../rute.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>

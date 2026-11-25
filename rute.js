@@ -145,7 +145,7 @@ class Rute {
 }
 
 const rute = new Rute()
-const onRouteChange = () => rute.init()
+const onRouteChange = () => (rute.loading = rute.init())
 
 if (document.readyState === 'loading') {
   globalThis.addEventListener('DOMContentLoaded', onRouteChange)
