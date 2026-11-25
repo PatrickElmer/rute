@@ -3,6 +3,7 @@ name: Tests
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   qunit:
@@ -12,6 +13,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # playwright-core drives the runner's preinstalled Chrome; it downloads no browser.
       - run: npm install --no-save playwright-core@1.65.1
       - run: node tests/run.mjs
