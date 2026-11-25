@@ -13,6 +13,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/qunit@2.26.0/qunit/qunit.js"></script>
   <script>
+    // Collect the results for tests/run.mjs (used in CI).
+    const qunitFailures = []
+    QUnit.on('testEnd', test => {
+      if (test.status === 'failed') qunitFailures.push(test)
+    })
+    QUnit.on('runEnd', result => {
+      globalThis.qunitResult = { ...result, failures: qunitFailures }
+    })
+  </script>
+  <script>
     // Stub fetch before rute.js loads: templates come from the tests, not the
     // network, so this page also works when opened directly from disk.
     globalThis.templates = {}
