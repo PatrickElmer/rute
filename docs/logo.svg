@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <style>path { mix-blend-mode: screen }</style>
+  <g transform="translate(50 50) scale(0.92) skewX(-12) translate(-50 -52)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.92">
+    <path d="M26 66H74" stroke="#F43F8E"/>
+    <path d="M64 18V86" stroke="#22D3EE"/>
+    <path d="M36 86V54Q36 40 50 40H74" stroke="#FFE14D"/>
+  </g>
+</svg>
