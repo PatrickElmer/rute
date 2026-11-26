@@ -1,174 +1,219 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>rute — The boldest hash router</title>
-<meta name="description" content="Routing and reactive data in one script tag. A dependency-free router and reactivity layer for plain HTML pages.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B1026'/%3E%3Cg transform='translate(50 50) scale(0.76) skewX(-12) translate(-50 -52)' stroke-width='17' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M26 66H74' stroke='%23F43F8E'/%3E%3Cpath d='M64 18V86' stroke='%2322D3EE'/%3E%3Cpath d='M36 86V54Q36 40 50 40H74' stroke='%23FFE14D'/%3E%3C/g%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>rute — The boldest hash router</title>
+  <meta name="description"
+    content="Routing and reactive data in one script tag. A dependency-free router and reactivity layer for plain HTML pages.">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B1026'/%3E%3Cg transform='translate(50 50) scale(0.76) skewX(-12) translate(-50 -52)' stroke-width='17' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cpath d='M26 66H74' stroke='%23F43F8E'/%3E%3Cpath d='M64 18V86' stroke='%2322D3EE'/%3E%3Cpath d='M36 86V54Q36 40 50 40H74' stroke='%23FFE14D'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header id="top">
-  <nav>
-    <ul>
-      <li><a href="#top" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span class="wordmark">rute</span></a></li>
-    </ul>
-    <ul>
-      <li><a href="#demo">Live demo</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#reference">Reference</a></li>
-      <li><a href="https://github.com/patrickelmer/rute">GitHub</a></li>
-    </ul>
-  </nav>
+  <header id="top">
+    <nav>
+      <ul>
+        <li><a href="#top" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span
+              class="wordmark">rute</span></a></li>
+      </ul>
+      <ul>
+        <li><a href="#demo">Live demo</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#reference">Reference</a></li>
+        <li><a href="https://github.com/patrickelmer/rute">GitHub</a></li>
+      </ul>
+    </nav>
 
-  <div class="grid">
-    <div>
-      <h1>The boldest<br>hash router.</h1>
-      <p>Routing and reactive data in one script tag.</p>
-      <p>A dependency-free router and reactivity layer for plain HTML pages — about 1.6 KB gzipped, no framework, no bundler.</p>
-      <p>
-        <a href="#how" role="button">Get started</a>
-        <a href="#demo" role="button" class="outline">See the full demo</a>
-      </p>
-    </div>
+    <div class="grid">
+      <div>
+        <h1>The boldest<br>hash router.</h1>
+        <p>Routing and reactive data in one script tag.</p>
+        <p>A dependency-free router and reactivity layer for plain HTML pages — about 1.6 KB gzipped, no framework, no
+          bundler.</p>
+        <p>
+          <a href="#how" role="button">Get started</a>
+          <a href="#demo" role="button" class="outline">See the full demo</a>
+        </p>
+      </div>
 
-    <figure>
-      <figcaption><span>hello.html</span><span>● live</span></figcaption>
-<pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;</span>
+      <figure>
+        <figcaption><span>hello.html</span><span>● live</span></figcaption>
+        <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;</span>
 <span class="t">&lt;p&gt;</span>Hello, <span class="t">&lt;span</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;&lt;/span&gt;</span>!<span class="t">&lt;/p&gt;</span></code></pre>
-      <iframe src="demo.html#hello" title="Live demo: type your name"></iframe>
-    </figure>
-  </div>
-</header>
-
-<main>
-
-<section id="demo">
-  <header>
-    <p>Live demo</p>
-    <h2>Two attributes. That's the API.</h2>
+        <iframe src="demo.html#hello" title="Live demo: type your name"></iframe>
+      </figure>
+    </div>
   </header>
-  <p>Add <code class="v">data-bind</code> to make an element a live view of a value, and <code class="t">data-compute</code> to turn its text into an expression. rute tracks the dependencies for you.</p>
 
-  <div class="grid">
-<pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"price"</span> <span class="a">value</span>=<span class="v">"10"</span><span class="t">&gt;</span>
+  <main>
+
+    <section id="demo">
+      <header>
+        <p>Live demo</p>
+        <h2>Two attributes. That's the API.</h2>
+      </header>
+      <p>Add <code class="v">data-bind</code> to make an element a live view of a value, and <code
+          class="t">data-compute</code> to turn its text into an expression. rute tracks the dependencies for you.</p>
+
+      <div class="grid">
+        <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"price"</span> <span class="a">value</span>=<span class="v">"10"</span><span class="t">&gt;</span>
 <span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"qty"</span> <span class="a">value</span>=<span class="v">"2"</span><span class="t">&gt;</span>
 <span class="t">&lt;p&gt;</span>Total: <span class="t">&lt;span</span> <span class="a">data-compute</span>=<span class="v">"total"</span><span class="t">&gt;</span>price * qty<span class="t">&lt;/span&gt;&lt;/p&gt;</span>
 
 <span class="c">// Bound values are plain globals. Reset runs:</span>
 price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
-    <iframe src="demo.html#total" title="Live demo: price times quantity"></iframe>
-  </div>
+        <iframe src="demo.html#total" title="Live demo: price times quantity"></iframe>
+      </div>
 
-  <header id="features">
-    <p>What it is</p>
-    <h2>rute does two things.</h2>
-  </header>
-  <div class="grid">
-    <article>
-      <p>01 · Routes</p>
-      <h3>Hash URLs to HTML templates</h3>
-      <p>On load and on every <code>hashchange</code>, rute fetches the matching template from a folder and swaps it into the page — no page reload. Scripts inside templates still run.</p>
-    </article>
-    <article>
-      <p>02 · Binds</p>
-      <h3>DOM elements to reactive values</h3>
-      <p>Values live in <code>localStorage</code>, scoped per route, so they survive reloads. Every bound element stays in sync, and computed expressions re-run when their inputs change.</p>
-    </article>
-  </div>
-</section>
+      <header id="features">
+        <p>What it is</p>
+        <h2>rute does two things.</h2>
+      </header>
+      <div class="grid">
+        <article>
+          <p>01 · Routes</p>
+          <h3>Hash URLs to HTML templates</h3>
+          <p>On load and on every <code>hashchange</code>, rute fetches the matching template from a folder and swaps it
+            into the page — no page reload. Scripts inside templates still run.</p>
+        </article>
+        <article>
+          <p>02 · Binds</p>
+          <h3>DOM elements to reactive values</h3>
+          <p>Values live in <code>localStorage</code>, scoped per route, so they survive reloads. Every bound element
+            stays in sync, and computed expressions re-run when their inputs change.</p>
+        </article>
+      </div>
+    </section>
 
-<section id="how">
-  <header>
-    <p>How it works</p>
-    <h2>From folder to app in three steps.</h2>
-  </header>
-  <ol>
-    <li>
-      <h3>Add the element and script</h3>
-<pre><code><span class="t">&lt;rute</span> <span class="a">default</span>=<span class="v">"index"</span> <span class="a">dir</span>=<span class="v">"templates/"</span><span class="t">&gt;&lt;/rute&gt;</span>
+    <section id="how">
+      <header>
+        <p>How it works</p>
+        <h2>From folder to app in three steps.</h2>
+      </header>
+      <ol>
+        <li>
+          <h3>Add the element and script</h3>
+          <pre><code><span class="t">&lt;rute</span> <span class="a">default</span>=<span class="v">"index"</span> <span class="a">dir</span>=<span class="v">"templates/"</span><span class="t">&gt;&lt;/rute&gt;</span>
 <span class="t">&lt;script</span> <span class="a">src</span>=<span class="v">"https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
-    </li>
-    <li>
-      <h3>Write plain HTML templates</h3>
-      <p>Visiting <code>#/about</code> fetches <code>templates/about.html</code>. No hash loads the default. No element? rute falls back to <code>#rute</code>, then <code>document.body</code>.</p>
-    </li>
-    <li>
-      <h3>Bind your data</h3>
-      <p>Each value is saved as <code>rute_hash_&lt;hash&gt;_&lt;name&gt;</code>, so the same name on two routes holds two values.</p>
-    </li>
-  </ol>
-</section>
+        </li>
+        <li>
+          <h3>Write plain HTML templates</h3>
+          <p>Visiting <code>#/about</code> fetches <code>templates/about.html</code>. No hash loads the default. No
+            element? rute falls back to <code>#rute</code>, then <code>document.body</code>.</p>
+        </li>
+        <li>
+          <h3>Bind your data</h3>
+          <p>Each value is saved as <code>rute_hash_&lt;hash&gt;_&lt;name&gt;</code>, so the same name on two routes
+            holds two values.</p>
+        </li>
+      </ol>
+    </section>
 
-<section id="reference">
-  <article>
-    <h2>The <code>&lt;rute&gt;</code> element</h2>
-    <figure>
-      <table>
-        <thead><tr><th>Attribute</th><th>Description</th><th>Default</th></tr></thead>
-        <tbody>
-          <tr><td>default</td><td>Route used when there's no hash</td><td>index</td></tr>
-          <tr><td>dir</td><td>Folder templates are fetched from</td><td>templates/</td></tr>
-          <tr><td>ext</td><td>File extension appended to the route name</td><td>.html</td></tr>
-          <tr><td>404</td><td>Fallback HTML shown when a template fails to load</td><td><i>none</i></td></tr>
-        </tbody>
-      </table>
-    </figure>
-  </article>
-</section>
+    <section id="reference">
+      <article>
+        <h2>The <code>&lt;rute&gt;</code> element</h2>
+        <figure>
+          <table>
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>Description</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>default</td>
+                <td>Route used when there's no hash</td>
+                <td>index</td>
+              </tr>
+              <tr>
+                <td>dir</td>
+                <td>Folder templates are fetched from</td>
+                <td>templates/</td>
+              </tr>
+              <tr>
+                <td>ext</td>
+                <td>File extension appended to the route name</td>
+                <td>.html</td>
+              </tr>
+              <tr>
+                <td>404</td>
+                <td>Fallback HTML shown when a template fails to load</td>
+                <td><i>none</i></td>
+              </tr>
+            </tbody>
+          </table>
+        </figure>
+      </article>
+    </section>
 
-<section id="examples" class="grid">
-  <div>
-    <h2>Examples</h2>
-    <ul>
-      <li><a href="examples.html#counter">
-        <span>0</span>
-        <strong>Counter</strong>
-        <code>count++</code>
-      </a></li>
-      <li><a href="examples.html#todo">
-        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 2 2 4-4M4 16l2 2 4-4M13 7h7M13 16h7"></path></svg>
-        <strong>Todo list</strong>
-        <small>persists per route</small>
-      </a></li>
-      <li><a href="examples.html#dice">
-        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F43F8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1"></circle><circle cx="15" cy="15" r="1"></circle><circle cx="12" cy="12" r="1"></circle></svg>
-        <strong>Dice</strong>
-        <code>dice = 'Rolling…'</code>
-      </a></li>
-    </ul>
-  </div>
-  <aside>
-    <h2>Good to know</h2>
-    <ul>
-      <li>Serve over HTTP in development (e.g. <code>python3 -m http.server</code>) — browsers block <code>fetch()</code> on <code>file://</code>.</li>
-      <li><code>data-compute</code> runs through <code>eval</code>: keep expressions simple and trusted.</li>
-      <li>Bindings work best with strings, numbers and booleans.</li>
-      <li>No virtual DOM or components — made for simple, mostly-static sites that need a bit of shared state.</li>
-    </ul>
-  </aside>
-</section>
+    <section id="examples" class="grid">
+      <div>
+        <h2>Examples</h2>
+        <ul>
+          <li><a href="examples.html#counter">
+              <span>0</span>
+              <strong>Counter</strong>
+              <code>count++</code>
+            </a></li>
+          <li><a href="examples.html#todo">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m4 7 2 2 4-4M4 16l2 2 4-4M13 7h7M13 16h7"></path>
+              </svg>
+              <strong>Todo list</strong>
+              <small>persists per route</small>
+            </a></li>
+          <li><a href="examples.html#dice">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F43F8E" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+                <circle cx="9" cy="9" r="1"></circle>
+                <circle cx="15" cy="15" r="1"></circle>
+                <circle cx="12" cy="12" r="1"></circle>
+              </svg>
+              <strong>Dice</strong>
+              <code>dice = 'Rolling…'</code>
+            </a></li>
+        </ul>
+      </div>
+      <aside>
+        <h2>Good to know</h2>
+        <ul>
+          <li>Serve over HTTP in development (e.g. <code>python3 -m http.server</code>) — browsers block
+            <code>fetch()</code> on <code>file://</code>.</li>
+          <li><code>data-compute</code> runs through <code>eval</code>: keep expressions simple and trusted.</li>
+          <li>Bindings work best with strings, numbers and booleans.</li>
+          <li>No virtual DOM or components — made for simple, mostly-static sites that need a bit of shared state.</li>
+        </ul>
+      </aside>
+    </section>
 
-<section id="start">
-  <img src="logo.svg" width="88" height="88" alt="">
-  <h2>One script tag away.</h2>
-  <p>No install, no bundler, no config. Paste the snippet and start writing HTML.</p>
-  <p><a href="https://github.com/patrickelmer/rute" role="button">Star on GitHub</a></p>
-</section>
+    <section id="start">
+      <img src="logo.svg" width="88" height="88" alt="">
+      <h2>One script tag away.</h2>
+      <p>No install, no bundler, no config. Paste the snippet and start writing HTML.</p>
+      <p><a href="https://github.com/patrickelmer/rute" role="button">Star on GitHub</a></p>
+    </section>
 
-</main>
+  </main>
 
-<footer>
-  <span class="wordmark">rute</span>
-  <span>The boldest hash router.</span>
-  <a href="https://github.com/patrickelmer/rute">github.com/patrickelmer/rute</a>
-</footer>
+  <footer>
+    <span class="wordmark">rute</span>
+    <span>The boldest hash router.</span>
+    <a href="https://github.com/patrickelmer/rute">github.com/patrickelmer/rute</a>
+  </footer>
 
 </body>
+
 </html>
