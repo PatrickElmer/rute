@@ -37,45 +37,44 @@ p:has(> [role=button]) { display: flex; flex-wrap: wrap; gap: 12px }
 
 .wordmark { font-family: var(--display); font-size: 26px; font-weight: 600; letter-spacing: -0.05em; line-height: 1; display: inline-block; transform: skewX(-12deg) }
 
-/* Sections: eyebrow label + heading in an <hgroup> */
+/* Sections: a small label and the heading in a <header> */
 main > section { padding-inline: var(--pad); padding-bottom: var(--section) }
-main > section > hgroup { margin-bottom: clamp(24px, 4vw, 40px) }
-section > hgroup > p:first-child { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim) }
-header hgroup + p, #demo > p, #start h2 + p { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--muted); max-width: 520px }
+main > section > header { margin-bottom: clamp(24px, 4vw, 40px) }
+section > header > p { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim) }
+body > header h1 + p + p, #demo > p, #start h2 + p { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--muted); max-width: 520px }
 
 /* Page header: nav and hero */
 body > header { background: radial-gradient(circle at 8% 0%, rgba(34,211,238,0.30), rgba(34,211,238,0) 40%), radial-gradient(circle at 100% 100%, rgba(244,63,142,0.30), rgba(244,63,142,0) 48%), var(--bg) }
-nav { display: flex; align-items: center; gap: 20px; padding: 14px var(--pad); border-bottom: 1px solid rgba(138,144,180,0.18) }
-nav > a { display: flex; align-items: center; gap: 8px; min-height: 44px }
-nav ul { list-style: none; padding: 0; margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 15px; font-weight: 500 }
-nav li a { display: block; padding: 12px 0 }
-header > .grid { padding: clamp(36px, 7vw, 88px) var(--pad) clamp(56px, 8vw, 104px); gap: clamp(36px, 5vw, 56px); align-items: center }
-header > .grid > div, header hgroup { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 24px) }
-header hgroup p { font-family: var(--display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; max-width: 540px }
-header figure { background: rgba(20,27,61,0.88); border: 1px solid var(--line); border-radius: 16px; overflow: hidden }
+body > header > nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px var(--pad); border-bottom: 1px solid rgba(138,144,180,0.18) }
+body > header > nav ul { list-style: none; padding: 0; display: flex; align-items: center; gap: 22px }
+body > header > nav ul:first-of-type a { display: flex; align-items: center; gap: 8px; min-height: 44px }
+body > header > nav ul:last-of-type { font-size: 15px; font-weight: 500 }
+body > header > nav ul:last-of-type a { display: block; padding: 12px 0 }
+body > header > .grid { padding: clamp(36px, 7vw, 88px) var(--pad) clamp(56px, 8vw, 104px); gap: clamp(36px, 5vw, 56px); align-items: center }
+body > header .grid > div { display: flex; flex-direction: column; gap: clamp(16px, 2vw, 24px) }
+body > header h1 + p { font-family: var(--display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; max-width: 540px }
+body > header figure { background: rgba(20,27,61,0.88); border: 1px solid var(--line); border-radius: 16px; overflow: hidden }
 figcaption { display: flex; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--dim) }
 figcaption span:last-child { color: var(--cyan) }
-header figure pre { padding: 20px 18px 18px }
-header iframe { width: calc(100% - 28px); height: 170px; margin: 0 14px 14px; border-radius: 12px }
+body > header figure pre { padding: 20px 18px 18px }
+body > header iframe { width: calc(100% - 28px); height: 170px; margin: 0 14px 14px; border-radius: 12px }
 
-/* Live demo */
-#demo { padding-top: var(--section); background: linear-gradient(135deg, var(--bg) 0%, #2E1566 100%) }
-#demo > hgroup { margin-bottom: 16px }
-#demo > hgroup > p:first-child { color: var(--muted) }
+/* Live demo and what it is */
+#demo { padding-top: var(--section); border-top: 1px solid var(--rule) }
+#demo > header:first-child { margin-bottom: 16px }
 #demo > p { max-width: 640px; color: var(--soft); margin-bottom: clamp(28px, 4vw, 40px) }
-#demo pre { background: rgba(11,16,38,0.75); border: 1px solid #3A3480; border-radius: 16px; padding: 24px 20px; line-height: 1.8 }
+#demo pre { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px 20px; line-height: 1.8 }
 #demo iframe { height: 290px; border-radius: 16px }
 
-/* What it is: two cards */
-#features { padding-top: var(--section) }
+/* What it is: two cards, in the same section as the demo */
+#features { margin-top: var(--section) }
 article { background: var(--panel); border-radius: 18px; padding: clamp(22px, 3vw, 32px) }
-#features article { display: flex; flex-direction: column; gap: 12px; border-top: 3px solid var(--accent) }
-#features article:nth-child(1) { --accent: var(--cyan) }
-#features article:nth-child(2) { --accent: var(--yellow) }
-article hgroup { display: flex; flex-direction: column; gap: 12px }
-article hgroup > p { font-family: var(--mono); font-size: 14px; color: var(--accent) }
-article h3 { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.01em }
-#features article > p { font-size: 16px; line-height: 1.6; color: var(--muted) }
+#demo article { display: flex; flex-direction: column; gap: 12px; border-top: 3px solid var(--accent) }
+#demo article:nth-child(1) { --accent: var(--cyan) }
+#demo article:nth-child(2) { --accent: var(--yellow) }
+#demo article > p:first-child { font-family: var(--mono); font-size: 14px; color: var(--accent) }
+#demo h3 { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.01em }
+#demo article > p:last-child { font-size: 16px; line-height: 1.6; color: var(--muted) }
 
 /* How it works: a numbered list */
 #how ol { list-style: none; padding: 0; counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px }
@@ -90,7 +89,7 @@ article h3 { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); l
 
 /* Reference table */
 #reference article { border-radius: 20px; padding: clamp(22px, 3vw, 36px) }
-#reference h2, #examples h2 { font-size: clamp(26px, 3vw, 32px); letter-spacing: -0.01em; line-height: normal }
+#reference h2, #examples > div > h2 { font-size: clamp(26px, 3vw, 32px); letter-spacing: -0.01em; line-height: normal }
 #reference h2 { margin-bottom: 20px }
 #reference figure { overflow-x: auto }
 table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 15px; text-align: left }
@@ -106,7 +105,7 @@ td i { font-family: Inter, system-ui, sans-serif; font-style: normal; color: var
 /* Examples and good to know */
 #examples { gap: 24px }
 #examples > div { display: flex; flex-direction: column; gap: 16px }
-#examples ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px }
+#examples > div > ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px }
 #examples li a { height: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px }
 #examples li a > :first-child:not(svg) { font-family: var(--display); font-size: 38px; font-weight: 600; color: var(--yellow); line-height: 1 }
 #examples strong { font-size: 16px; font-weight: 600 }
@@ -123,7 +122,7 @@ footer .wordmark { font-size: 20px; color: var(--text) }
 footer a { margin-left: auto; color: var(--muted); text-decoration: underline }
 
 @media (max-width: 640px) {
-  nav li:not(:first-child, :last-child) { display: none }
+  body > header > nav ul:last-of-type li:not(:first-child, :last-child) { display: none }
   #demo iframe { order: -1 }
 }
 
@@ -140,3 +139,25 @@ footer a { margin-left: auto; color: var(--muted); text-decoration: underline }
 .embed span[data-compute] { color: #0B7A96 }
 .embed hr { margin: 0; border: 0; height: 1px; background: #D6D9EA }
 .embed small { font-size: 14px; color: #3A4068 }
+
+/* examples.html: the example templates, routed by rute */
+main > rute { display: block; min-height: 60vh; padding: clamp(36px, 6vw, 72px) var(--pad) var(--section) }
+main > rute h1 { font-size: clamp(32px, 4.2vw, 44px); letter-spacing: -0.02em; line-height: 1.1 }
+main > rute > h1 { margin-bottom: 24px }
+main > rute > ol { padding-left: 24px; display: flex; flex-direction: column; gap: 10px; font-size: 18px }
+main > rute a { color: var(--cyan) }
+main > rute a:hover { text-decoration: underline }
+main > rute nav ul { list-style: none; padding: 0; margin-bottom: 24px; display: flex; gap: 8px; font-size: 14px; color: var(--dim) }
+main > rute nav li + li::before { content: "›"; margin-right: 8px }
+main > rute article { display: flex; flex-direction: column; gap: 16px }
+main > rute article > header { font-family: var(--display); font-size: 22px; font-weight: 600 }
+main > rute .example { display: flex; flex-direction: column; gap: 12px }
+main > rute [role=group] { display: flex; gap: 8px }
+main > rute [role=group] button { flex: 1 }
+main > rute input { font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--text); min-height: 44px; box-sizing: border-box; width: 100% }
+main > rute button { font: inherit; font-weight: 600; padding: 12px 18px; border: 0; border-radius: 10px; background: var(--yellow); color: var(--ink); min-height: 44px; cursor: pointer }
+main > rute hr { margin: 0; border: 0; height: 1px; background: var(--line) }
+main > rute article > footer { border-top: 1px solid var(--line); padding-top: 12px }
+main > rute summary { cursor: pointer; color: var(--dim); font-size: 14px }
+main > rute .code pre { margin-top: 12px; padding: 16px; border-radius: 12px; font-size: 13px; overflow-x: auto }
+main > rute h1[role=button] { font-size: clamp(32px, 4.2vw, 44px); text-align: center; cursor: pointer }

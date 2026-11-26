@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,9 @@
 
 <header id="top">
   <nav>
-    <a href="#top" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span class="wordmark">rute</span></a>
+    <ul>
+      <li><a href="#top" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span class="wordmark">rute</span></a></li>
+    </ul>
     <ul>
       <li><a href="#demo">Live demo</a></li>
       <li><a href="#features">Features</a></li>
@@ -27,10 +29,8 @@
 
   <div class="grid">
     <div>
-      <hgroup>
-        <h1>The boldest<br>hash router.</h1>
-        <p>Routing and reactive data in one script tag.</p>
-      </hgroup>
+      <h1>The boldest<br>hash router.</h1>
+      <p>Routing and reactive data in one script tag.</p>
       <p>A dependency-free router and reactivity layer for plain HTML pages — about 1.6 KB gzipped, no framework, no bundler.</p>
       <p>
         <a href="#how" role="button">Get started</a>
@@ -50,10 +50,10 @@
 <main>
 
 <section id="demo">
-  <hgroup>
+  <header>
     <p>Live demo</p>
     <h2>Two attributes. That's the API.</h2>
-  </hgroup>
+  </header>
   <p>Add <code class="v">data-bind</code> to make an element a live view of a value, and <code class="t">data-compute</code> to turn its text into an expression. rute tracks the dependencies for you.</p>
 
   <div class="grid">
@@ -65,36 +65,30 @@
 price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
     <iframe src="demo.html#total" title="Live demo: price times quantity"></iframe>
   </div>
-</section>
 
-<section id="features">
-  <hgroup>
+  <header id="features">
     <p>What it is</p>
     <h2>rute does two things.</h2>
-  </hgroup>
+  </header>
   <div class="grid">
     <article>
-      <hgroup>
-        <p>01 · Routes</p>
-        <h3>Hash URLs to HTML templates</h3>
-      </hgroup>
+      <p>01 · Routes</p>
+      <h3>Hash URLs to HTML templates</h3>
       <p>On load and on every <code>hashchange</code>, rute fetches the matching template from a folder and swaps it into the page — no page reload. Scripts inside templates still run.</p>
     </article>
     <article>
-      <hgroup>
-        <p>02 · Binds</p>
-        <h3>DOM elements to reactive values</h3>
-      </hgroup>
+      <p>02 · Binds</p>
+      <h3>DOM elements to reactive values</h3>
       <p>Values live in <code>localStorage</code>, scoped per route, so they survive reloads. Every bound element stays in sync, and computed expressions re-run when their inputs change.</p>
     </article>
   </div>
 </section>
 
 <section id="how">
-  <hgroup>
+  <header>
     <p>How it works</p>
     <h2>From folder to app in three steps.</h2>
-  </hgroup>
+  </header>
   <ol>
     <li>
       <h3>Add the element and script</h3>
@@ -133,17 +127,17 @@ price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
   <div>
     <h2>Examples</h2>
     <ul>
-      <li><a href="index.html#counter">
+      <li><a href="examples.html#counter">
         <span>0</span>
         <strong>Counter</strong>
         <code>count++</code>
       </a></li>
-      <li><a href="index.html#todo">
+      <li><a href="examples.html#todo">
         <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 7 2 2 4-4M4 16l2 2 4-4M13 7h7M13 16h7"></path></svg>
         <strong>Todo list</strong>
         <small>persists per route</small>
       </a></li>
-      <li><a href="index.html#dice">
+      <li><a href="examples.html#dice">
         <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#F43F8E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"></rect><circle cx="9" cy="9" r="1"></circle><circle cx="15" cy="15" r="1"></circle><circle cx="12" cy="12" r="1"></circle></svg>
         <strong>Dice</strong>
         <code>dice = 'Rolling…'</code>
