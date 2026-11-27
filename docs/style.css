@@ -107,7 +107,7 @@ td i { font-family: Inter, system-ui, sans-serif; font-style: normal; color: var
 #examples > div { display: flex; flex-direction: column; gap: 16px }
 #examples > div > ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px }
 #examples li a { height: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px }
-#examples li a > :first-child:not(svg) { font-family: var(--display); font-size: 38px; font-weight: 600; color: var(--yellow); line-height: 1 }
+#examples li a > :first-child:not(img) { font-family: var(--display); font-size: 38px; font-weight: 600; color: var(--yellow); line-height: 1 }
 #examples strong { font-size: 16px; font-weight: 600 }
 #examples li a > :last-child { font-family: var(--mono); font-size: 12px; color: var(--dim) }
 aside { background: var(--panel); border-radius: 18px; padding: clamp(22px, 3vw, 28px); display: flex; flex-direction: column; gap: 14px }
