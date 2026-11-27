@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -17,196 +17,24 @@
 
 <body>
 
-  <header id="top">
+  <header>
     <nav>
       <ul>
-        <li><a href="#top" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span
+        <li><a href="#" aria-label="rute home"><img src="logo.svg" width="30" height="30" alt=""><span
               class="wordmark">rute</span></a></li>
       </ul>
       <ul>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#demo">Live demo</a></li>
-        <li><a href="#how">How it works</a></li>
-        <li><a href="#reference">Reference</a></li>
-        <li><a href="#install">Install</a></li>
+        <li><a href="#docs">Docs</a></li>
+        <li><a href="#examples">Examples</a></li>
         <li><a href="https://github.com/patrickelmer/rute">GitHub</a></li>
       </ul>
     </nav>
-
-    <div class="grid">
-      <div>
-        <h1>A reactive hash router.</h1>
-        <p>Turn a folder of HTML templates into an app, with live data that survives reloads.</p>
-        <p>No dependencies, no build step — <a href="#install">one script tag</a>, about 1.6 KB gzipped.</p>
-        <p>
-          <a href="#how" class="btn">Get started</a>
-          <a href="#demo" class="btn outline">See the full demo</a>
-        </p>
-      </div>
-
-      <figure>
-        <figcaption><span>hello.html</span><span><span aria-hidden="true">●</span> live</span></figcaption>
-        <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;</span>
-<span class="t">&lt;p&gt;</span>Hello, <span class="t">&lt;span</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;&lt;/span&gt;</span>!<span class="t">&lt;/p&gt;</span></code></pre>
-        <iframe src="demo.html#hello" title="Live demo: type your name"></iframe>
-      </figure>
-    </div>
   </header>
 
+  <!-- This site is a rute app: every page is a template in pages/ -->
   <main>
-
-    <section id="features">
-      <header>
-        <p>Features</p>
-        <h2>rute does two things.</h2>
-      </header>
-      <div class="grid">
-        <article>
-          <p>01 · Routes</p>
-          <h3>Hash URLs to HTML templates</h3>
-          <p>On load and on every <code>hashchange</code>, rute fetches the matching template from a folder and swaps it
-            into the page — no page reload. Scripts inside templates still run.</p>
-        </article>
-        <article>
-          <p>02 · Binds</p>
-          <h3>DOM elements to reactive values</h3>
-          <p>Values live in <code>localStorage</code>, scoped per route, so they survive reloads. Every bound element
-            stays in sync, and computed expressions re-run when their inputs change.</p>
-        </article>
-      </div>
-
-      <header id="demo">
-        <p>Live demo</p>
-        <h2>Two attributes for reactive data.</h2>
-      </header>
-      <p>Add <code class="v">data-bind</code> to make an element a live view of a value, and <code
-          class="t">data-compute</code> to turn its text into an expression. rute tracks the dependencies for you.</p>
-
-      <div class="grid">
-        <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"price"</span> <span class="a">value</span>=<span class="v">"10"</span><span class="t">&gt;</span>
-<span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"qty"</span> <span class="a">value</span>=<span class="v">"2"</span><span class="t">&gt;</span>
-<span class="t">&lt;p&gt;</span>Total: <span class="t">&lt;span</span> <span class="a">data-compute</span>=<span class="v">"total"</span><span class="t">&gt;</span>price * qty<span class="t">&lt;/span&gt;&lt;/p&gt;</span>
-
-<span class="c">// Bound values are plain globals. Reset runs:</span>
-price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
-        <iframe src="demo.html#total" title="Live demo: price times quantity"></iframe>
-      </div>
-    </section>
-
-    <section id="how">
-      <header>
-        <p>How it works</p>
-        <h2>From folder to app in three steps.</h2>
-      </header>
-      <ol>
-        <li>
-          <h3>Add the element and script</h3>
-          <pre><code><span class="t">&lt;rute</span> <span class="a">default</span>=<span class="v">"index"</span> <span class="a">dir</span>=<span class="v">"templates/"</span><span class="t">&gt;&lt;/rute&gt;</span>
-<span class="t">&lt;script</span> <span class="a">src</span>=<span class="v">"https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
-        </li>
-        <li>
-          <h3>Write plain HTML templates</h3>
-          <p>Visiting <code>#/about</code> fetches <code>templates/about.html</code>. No hash loads the default. No
-            element? rute falls back to <code>#rute</code>, then <code>document.body</code>.</p>
-        </li>
-        <li>
-          <h3>Bind your data</h3>
-          <p>Each value is saved as <code>rute_hash_&lt;hash&gt;_&lt;name&gt;</code>, so the same name on two routes
-            holds two values.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section id="reference">
-      <header>
-        <p>Reference</p>
-        <h2 id="reference-title">The <code>&lt;rute&gt;</code> element</h2>
-      </header>
-      <article>
-        <figure>
-          <table aria-labelledby="reference-title">
-            <thead>
-              <tr>
-                <th>Attribute</th>
-                <th>Description</th>
-                <th>Default</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>default</td>
-                <td>Route used when there's no hash</td>
-                <td>index</td>
-              </tr>
-              <tr>
-                <td>dir</td>
-                <td>Folder templates are fetched from</td>
-                <td>templates/</td>
-              </tr>
-              <tr>
-                <td>ext</td>
-                <td>File extension appended to the route name</td>
-                <td>.html</td>
-              </tr>
-              <tr>
-                <td>404</td>
-                <td>Fallback HTML shown when a template fails to load</td>
-                <td><i>none</i></td>
-              </tr>
-            </tbody>
-          </table>
-        </figure>
-      </article>
-    </section>
-
-    <section id="examples">
-      <header>
-        <p>Examples</p>
-        <h2>Small apps, one template each.</h2>
-      </header>
-      <div class="grid">
-        <ul>
-          <li><a href="examples.html#counter">
-              <span aria-hidden="true">0</span>
-              <strong>Counter <span aria-hidden="true">→</span></strong>
-              <code aria-hidden="true">count++</code>
-            </a></li>
-          <li><a href="examples.html#todo">
-              <img src="icons/todo.svg" width="38" height="38" alt="">
-              <strong>Todo list <span aria-hidden="true">→</span></strong>
-              <small>persists per route</small>
-            </a></li>
-          <li><a href="examples.html#dice">
-              <img src="icons/dice.svg" width="38" height="38" alt="">
-              <strong>Dice <span aria-hidden="true">→</span></strong>
-              <code aria-hidden="true">dice = 'Rolling…'</code>
-            </a></li>
-        </ul>
-        <aside>
-          <h3>Good to know</h3>
-          <ul>
-            <li>Serve over HTTP in development (e.g. <code>python3 -m http.server</code>) — browsers block
-              <code>fetch()</code> on <code>file://</code>.</li>
-            <li><code>data-compute</code> runs through <code>eval</code>: keep expressions simple and trusted.</li>
-            <li>Bindings work best with strings, numbers and booleans.</li>
-            <li>No virtual DOM or components — made for simple, mostly-static sites that need a bit of shared state.</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section id="install">
-      <img src="logo.svg" width="88" height="88" alt="">
-      <h2>One script tag away.</h2>
-      <p>No install, no bundler, no config. Paste the snippet and start writing HTML.</p>
-      <pre><code id="snippet"><span class="t">&lt;rute&gt;&lt;/rute&gt;</span>
-<span class="t">&lt;script</span> <span class="a">src</span>=<span class="v">"https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
-      <p>
-        <button type="button" class="btn" data-copy="snippet">Copy snippet</button>
-        <a href="https://github.com/patrickelmer/rute" class="btn outline">Star on GitHub</a>
-      </p>
-    </section>
-
+    <rute dir="pages/"
+      404="<section class='not-found'><h1>Page not found.</h1><p class='lead'><a href='#'>Back to the home page</a></p></section>"></rute>
   </main>
 
   <footer>
@@ -215,35 +43,35 @@ price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
     <a href="https://github.com/patrickelmer/rute">github.com/patrickelmer/rute</a>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"></script>
   <script>
-    // Copy the snippet to the clipboard.
-    for (const button of document.querySelectorAll('[data-copy]')) {
-      const label = button.textContent
-      button.addEventListener('click', async () => {
-        const text = document.getElementById(button.dataset.copy).textContent
-        try {
-          await navigator.clipboard.writeText(text)
-          button.textContent = 'Copied!'
-        } catch {
-          getSelection().selectAllChildren(document.getElementById(button.dataset.copy))
-          button.textContent = 'Press Ctrl+C to copy'
-        }
-        setTimeout(() => (button.textContent = label), 2000)
-      })
-    }
-
-    // Size the demo iframes to their content (CSS min-height is the fallback).
-    for (const frame of document.querySelectorAll('iframe')) {
-      const fit = () => {
-        const body = frame.contentDocument?.body
-        if (!body) return // not same-origin, e.g. opened from file://
-        new ResizeObserver(() => (frame.style.height = body.scrollHeight + 'px')).observe(body)
+    // Mark the nav link of the current page, e.g. "Examples" on #examples/counter.
+    const markCurrent = () => {
+      const section = location.hash.replace(/^#\/*/, '').split('/')[0]
+      for (const link of document.querySelectorAll('body > header nav a[href^="#"]')) {
+        const current = section && link.getAttribute('href') === '#' + section
+        if (current) link.setAttribute('aria-current', 'page')
+        else link.removeAttribute('aria-current')
       }
-      const doc = frame.contentDocument
-      // Before loading, an iframe holds an empty about:blank document.
-      if (doc && doc.URL !== 'about:blank' && doc.readyState === 'complete') fit()
-      else frame.addEventListener('load', fit)
     }
+    addEventListener('hashchange', markCurrent)
+    markCurrent()
+
+    // Copy buttons in templates: <button data-copy="id-of-code-element">
+    document.addEventListener('click', async event => {
+      const button = event.target.closest('[data-copy]')
+      if (!button) return
+      const code = document.getElementById(button.dataset.copy)
+      button.dataset.label ??= button.textContent
+      try {
+        await navigator.clipboard.writeText(code.textContent)
+        button.textContent = 'Copied!'
+      } catch {
+        getSelection().selectAllChildren(code)
+        button.textContent = 'Press Ctrl+C to copy'
+      }
+      setTimeout(() => (button.textContent = button.dataset.label), 2000)
+    })
   </script>
 
 </body>

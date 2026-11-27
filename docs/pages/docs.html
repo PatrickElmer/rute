@@ -1,0 +1,120 @@
+<section class="page-title">
+  <header>
+    <p>Docs</p>
+    <h1>Get started with rute.</h1>
+  </header>
+  <p class="lead">rute routes hash URLs to HTML templates and binds elements to values that persist in
+    <code>localStorage</code>. This page covers the setup, the two binding attributes and the options of the
+    <code>&lt;rute&gt;</code> element.</p>
+</section>
+
+<section class="setup">
+  <header>
+    <p>Setup</p>
+    <h2>From folder to app in three steps.</h2>
+  </header>
+  <ol class="steps">
+    <li>
+      <h3>Add the element and script</h3>
+      <pre><code id="setup-snippet"><span class="t">&lt;rute</span> <span class="a">default</span>=<span class="v">"index"</span> <span class="a">dir</span>=<span class="v">"templates/"</span><span class="t">&gt;&lt;/rute&gt;</span>
+<span class="t">&lt;script</span> <span class="a">src</span>=<span class="v">"https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
+      <p><button type="button" class="btn outline" data-copy="setup-snippet">Copy</button></p>
+    </li>
+    <li>
+      <h3>Write plain HTML templates</h3>
+      <p>Visiting <code>#/about</code> fetches <code>templates/about.html</code>. No hash loads the default. No
+        element? rute falls back to <code>#rute</code>, then <code>document.body</code>.</p>
+    </li>
+    <li>
+      <h3>Bind your data</h3>
+      <p>Each value is saved as <code>rute_hash_&lt;hash&gt;_&lt;name&gt;</code>, so the same name on two routes
+        holds two values.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="reactive">
+  <header>
+    <p>Reactive data</p>
+    <h2>Two attributes for reactive data.</h2>
+  </header>
+  <p class="lead">Add <code class="v">data-bind</code> to make an element a live view of a value, and <code
+      class="t">data-compute</code> to turn its text into an expression. rute tracks the dependencies for you.</p>
+  <div class="grid">
+    <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"price"</span> <span class="a">value</span>=<span class="v">"10"</span><span class="t">&gt;</span>
+<span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"qty"</span> <span class="a">value</span>=<span class="v">"2"</span><span class="t">&gt;</span>
+<span class="t">&lt;p&gt;</span>Total: <span class="t">&lt;span</span> <span class="a">data-compute</span>=<span class="v">"total"</span><span class="t">&gt;</span>price * qty<span class="t">&lt;/span&gt;&lt;/p&gt;</span>
+
+<span class="c">// Bound values are plain globals. Reset runs:</span>
+price = <span class="v">10</span>; qty = <span class="v">2</span></code></pre>
+    <div class="demo">
+      <header>
+        <span>Result · try changing the numbers</span>
+        <button type="button" onclick="price = 10; qty = 2">Reset</button>
+      </header>
+      <fieldset>
+        <label>Price <input data-bind="price" type="number" value="10"></label>
+        <label>Quantity <input data-bind="qty" type="number" value="2"></label>
+      </fieldset>
+      <p>Total: <span data-compute="total">price * qty</span></p>
+      <hr>
+      <small>Reload the page: rute kept your numbers in localStorage.</small>
+    </div>
+  </div>
+</section>
+
+<section class="reference">
+  <header>
+    <p>Reference</p>
+    <h2 id="reference-title">The <code>&lt;rute&gt;</code> element</h2>
+  </header>
+  <article>
+    <figure>
+      <table aria-labelledby="reference-title">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Default</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>default</td>
+            <td>Route used when there's no hash</td>
+            <td>index</td>
+          </tr>
+          <tr>
+            <td>dir</td>
+            <td>Folder templates are fetched from</td>
+            <td>templates/</td>
+          </tr>
+          <tr>
+            <td>ext</td>
+            <td>File extension appended to the route name</td>
+            <td>.html</td>
+          </tr>
+          <tr>
+            <td>404</td>
+            <td>Fallback HTML shown when a template fails to load</td>
+            <td><i>none</i></td>
+          </tr>
+        </tbody>
+      </table>
+    </figure>
+  </article>
+</section>
+
+<section class="notes">
+  <header>
+    <p>Good to know</p>
+    <h2>Tips and limits.</h2>
+  </header>
+  <ul>
+    <li>Serve over HTTP in development (e.g. <code>python3 -m http.server</code>) — browsers block
+      <code>fetch()</code> on <code>file://</code>.</li>
+    <li><code>data-compute</code> runs through <code>eval</code>: keep expressions simple and trusted.</li>
+    <li>Bindings work best with strings, numbers and booleans.</li>
+    <li>No virtual DOM or components — made for simple, mostly-static sites that need a bit of shared state.</li>
+  </ul>
+</section>

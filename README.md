@@ -56,7 +56,7 @@ Add `data-bind="name"` to any element to turn it into a live view of a value cal
 
   ```js
   console.log(username)      // read
-  username = 'Ada'           // write — updates every bound element
+  username = 'Rute'          // write — updates every bound element
   ```
 
 Inputs use their `value` property; other elements use `textContent`.

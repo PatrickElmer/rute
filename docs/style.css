@@ -1,5 +1,5 @@
 :root {
-  --bg: #0B1026; --panel: #141B3D; --paper: #EEF0F8; --ink: #0B1026;
+  --bg: #0B1026; --panel: #141B3D; --ink: #0B1026;
   --text: #E8EAF6; --muted: #B4B8D6; --dim: #8A90B4;
   --line: #2A3366; /* dividers */
   --edge: #6B73A8; /* borders of controls; at least 3:1 on --bg and --panel */
@@ -18,17 +18,15 @@ pre, code { font-family: var(--mono); font-variant-ligatures: none }
 code { color: var(--text) }
 pre { font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word }
 h1, h2 { font-family: var(--display); font-weight: 600 }
-h1 { font-size: clamp(44px, 6.2vw, 72px); letter-spacing: -0.035em; line-height: 1.02 }
+h1 { font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.03em; line-height: 1.05 }
 h2 { font-size: clamp(32px, 4.2vw, 44px); letter-spacing: -0.02em; line-height: 1.1 }
 h2 code { font-size: 0.88em; color: var(--yellow) }
 h3 { font-size: 20px; font-weight: 600; line-height: 1.25 }
-iframe { display: block; width: 100%; border: 0; background: var(--paper) }
 
-/* Keyboard focus and hover */
+/* Keyboard focus, hover and links in text */
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px }
 p > a:not(.btn) { text-decoration: underline; text-underline-offset: 0.2em }
 p > a:not(.btn):hover { color: var(--cyan) }
-:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px }
-body > header > nav ul:last-of-type a:hover, footer a:hover { color: var(--cyan) }
 
 /* Buttons; .outline is the secondary style */
 .btn { display: inline-block; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.5; padding: 12px 22px; border: 1px solid transparent; border-radius: 10px; background: var(--yellow); color: var(--ink); cursor: pointer }
@@ -45,61 +43,105 @@ p:has(> .btn) { display: flex; flex-wrap: wrap; gap: 12px }
 .t { color: var(--pink) } .a { color: var(--cyan) } .v { color: var(--yellow) } .c { color: var(--dim) }
 
 .wordmark { font-family: var(--display); font-size: 26px; font-weight: 600; letter-spacing: -0.05em; line-height: 1; display: inline-block; transform: skewX(-12deg) }
+.lead { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--muted); max-width: 640px }
 
-/* Sections: a small label and the heading in a <header> */
-main > section { padding-inline: var(--pad); padding-bottom: var(--section) }
-main > section > header { margin-bottom: clamp(24px, 4vw, 40px) }
-section > header > p { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim) }
-body > header h1 + p + p, #demo + p, #install h2 + p { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; color: var(--muted); max-width: 520px }
-
-/* Page header: nav and hero */
-body > header { background: radial-gradient(circle at 8% 0%, rgba(34,211,238,0.30), rgba(34,211,238,0) 40%), radial-gradient(circle at 100% 100%, rgba(244,63,142,0.30), rgba(244,63,142,0) 48%), var(--bg) }
-body > header > nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px var(--pad); border-bottom: 1px solid rgba(138,144,180,0.18) }
+/* Site header and footer (index.html) */
+body > header { border-bottom: 1px solid rgba(138,144,180,0.18) }
+body > header > nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px var(--pad) }
 body > header > nav ul { list-style: none; padding: 0; display: flex; align-items: center; gap: 22px }
 body > header > nav ul:first-of-type a { display: flex; align-items: center; gap: 8px; min-height: 44px }
 body > header > nav ul:last-of-type { font-size: 15px; font-weight: 500 }
 body > header > nav ul:last-of-type a { display: block; padding: 13px 0; line-height: 1.2 }
-body > header > .grid { padding: clamp(36px, 7vw, 88px) var(--pad) clamp(56px, 8vw, 104px); gap: clamp(36px, 5vw, 56px); align-items: center }
-body > header .grid > div { display: flex; flex-direction: column; gap: clamp(12px, 1.5vw, 16px) }
-body > header .grid > div > p:last-child { margin-top: 12px }
-body > header h1 + p { font-family: var(--display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; max-width: 540px }
-body > header figure { background: rgba(20,27,61,0.88); border: 1px solid var(--line); border-radius: 16px; overflow: hidden }
+body > header > nav ul:last-of-type a:is(:hover, [aria-current=page]) { color: var(--cyan) }
+body > footer { padding: 24px var(--pad); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; font-size: 14px; color: var(--dim); border-top: 1px solid var(--line) }
+footer .wordmark { font-size: 20px; color: var(--text) }
+footer a { margin-left: auto; color: var(--muted); text-decoration: underline }
+footer a:hover { color: var(--cyan) }
+
+/* Pages: each template is one or more sections, separated by a line */
+rute { display: block; min-height: 70vh }
+rute > section { padding: var(--section) var(--pad) }
+rute > section + section { border-top: 1px solid var(--line) }
+rute > section > header { margin-bottom: clamp(24px, 4vw, 40px) }
+section > header > p { margin-bottom: 12px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim) }
+rute > section > header:has(+ .lead) { margin-bottom: 16px }
+article { background: var(--panel); border-radius: 18px; padding: clamp(22px, 3vw, 32px) }
+
+/* Home: hero */
+.hero { background: radial-gradient(circle at 8% 0%, rgba(34,211,238,0.30), rgba(34,211,238,0) 40%), radial-gradient(circle at 100% 100%, rgba(244,63,142,0.30), rgba(244,63,142,0) 48%), var(--bg) }
+rute > .hero { padding-block: clamp(36px, 7vw, 88px) clamp(56px, 8vw, 104px) }
+.hero > .grid { gap: clamp(36px, 5vw, 56px); align-items: center }
+.hero > .grid > div { display: flex; flex-direction: column; gap: clamp(12px, 1.5vw, 16px) }
+.hero > .grid > div > p:last-child { margin-top: 12px }
+.hero h1 { font-size: clamp(44px, 6.2vw, 72px); letter-spacing: -0.035em; line-height: 1.02 }
+.tagline { font-family: var(--display); font-size: clamp(20px, 2.2vw, 26px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; max-width: 540px }
+.hero figure { background: rgba(20,27,61,0.88); border: 1px solid var(--line); border-radius: 16px; overflow: hidden }
 figcaption { display: flex; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--dim) }
 figcaption > span:last-child { color: var(--cyan) }
-body > header figure pre { padding: 20px 18px 18px }
-/* The iframes are sized to their content by a script; min-height is the fallback */
-body > header iframe { width: calc(100% - 28px); min-height: 170px; margin: 0 14px 14px; border-radius: 12px }
+.hero figure pre { padding: 20px 18px 18px }
+.hero .demo { margin: 0 14px 14px; border-radius: 12px; background: var(--bg) }
 
-/* Features, then the live demo, in one section */
-#features { padding-top: var(--section); border-top: 1px solid var(--line) }
-article { background: var(--panel); border-radius: 18px; padding: clamp(22px, 3vw, 32px) }
-#features article { display: flex; flex-direction: column; gap: 12px; border-top: 3px solid var(--accent) }
-#features article:nth-child(1) { --accent: var(--cyan) }
-#features article:nth-child(2) { --accent: var(--yellow) }
-#features article > p:first-child { font-family: var(--mono); font-size: 14px; color: var(--accent) }
-#features h3 { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.01em }
-#features article > p:last-child { font-size: 16px; line-height: 1.6; color: var(--muted) }
-#demo { margin-top: var(--section); margin-bottom: 16px }
-#demo + p { max-width: 640px; margin-bottom: clamp(28px, 4vw, 40px) }
-#demo + p + .grid pre { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px 20px; line-height: 1.8 }
-#demo + p + .grid iframe { min-height: 290px; border-radius: 16px }
+/* Home: features */
+.features article { display: flex; flex-direction: column; gap: 12px; border-top: 3px solid var(--accent) }
+.features article:nth-child(1) { --accent: var(--cyan) }
+.features article:nth-child(2) { --accent: var(--yellow) }
+.features article > p:first-child { font-family: var(--mono); font-size: 14px; color: var(--accent) }
+.features h3 { font-family: var(--display); font-size: clamp(22px, 2.4vw, 28px); letter-spacing: -0.01em }
+.features article > p:last-of-type { font-size: 16px; line-height: 1.6; color: var(--muted) }
+.features pre { margin-top: auto; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); font-size: 13px; line-height: 1.7; white-space: pre; overflow-x: auto }
 
-/* How it works: a numbered list */
-#how ol { list-style: none; padding: 0; counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px }
-#how li { counter-increment: step; display: flex; flex-direction: column; gap: 12px; min-width: 0 }
-#how li::before { content: counter(step); font-family: var(--display); font-size: 52px; font-weight: 600; line-height: 1; color: var(--accent) }
-#how li:nth-child(1) { --accent: var(--yellow) }
-#how li:nth-child(2) { --accent: var(--cyan) }
-#how li:nth-child(3) { --accent: var(--pink) }
-#how li p { font-size: 15px; line-height: 1.6; color: var(--muted) }
-#how p code { word-break: break-all }
+/* Four smaller points below the cards */
+.perks { list-style: none; padding: 0; margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; font-size: 14px; line-height: 1.55; color: var(--muted) }
+.perks li { padding: 18px 0 0; border-top: 1px solid var(--line) }
+.perks li > span { display: block; margin-bottom: 10px; font-family: var(--mono); font-size: 18px; font-weight: 600; color: var(--accent) }
+.perks li:nth-child(3n+1) { --accent: var(--pink) }
+.perks li:nth-child(3n+2) { --accent: var(--yellow) }
+.perks li:nth-child(3n+3) { --accent: var(--cyan) }
+.perks strong { display: block; margin-bottom: 4px; font-size: 16px; font-weight: 600; color: var(--text) }
+
+
+/* Home: install */
+.install { display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; background: radial-gradient(circle at 15% 100%, rgba(244,63,142,0.28), rgba(244,63,142,0) 45%), radial-gradient(circle at 90% 0%, rgba(34,211,238,0.28), rgba(34,211,238,0) 45%), var(--bg) }
+.install h2 { font-size: clamp(34px, 4.5vw, 48px) }
+.install .lead { max-width: 520px }
+.install pre { max-width: 100%; box-sizing: border-box; text-align: left }
 
 /* Code blocks to copy from: keep lines intact and scroll sideways */
-#how pre, #install pre { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.7; white-space: pre; overflow-x: auto }
+.install pre, .steps pre { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-size: 13px; line-height: 1.7; white-space: pre; overflow-x: auto }
 
-/* Reference table */
-#reference article { border-radius: 20px; padding: clamp(22px, 3vw, 36px) }
-#reference figure { overflow-x: auto }
+/* Live demos: dark cards with real rute bindings */
+.demo { display: flex; flex-direction: column; gap: 14px; padding: 20px; border: 1px solid var(--line); background: var(--panel) }
+.demo label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; color: var(--muted) }
+.demo input { font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border: 1px solid var(--edge); border-radius: 10px; background: var(--bg); color: var(--text); min-height: 44px; box-sizing: border-box; width: 100% }
+.demo input:focus { border-color: var(--cyan) }
+.demo header { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; color: var(--dim) }
+.demo button { font: inherit; font-weight: 600; color: var(--text); background: transparent; border: 1px solid var(--edge); border-radius: 8px; padding: 10px 14px; min-height: 44px; cursor: pointer }
+.demo button:hover { border-color: var(--cyan) }
+.demo fieldset { margin: 0; padding: 0; border: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.demo p { font-family: var(--display); font-size: 30px; font-weight: 600; line-height: 1.2 }
+.demo span[data-bind] { color: var(--pink) }
+.demo span[data-compute] { color: var(--cyan) }
+.demo hr { margin: 0; border: 0; height: 1px; background: var(--line) }
+.demo small { font-size: 14px; color: var(--dim) }
+
+/* Docs: setup steps */
+.steps { list-style: none; padding: 0; counter-reset: step; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 28px }
+.steps li { counter-increment: step; display: flex; flex-direction: column; gap: 12px; min-width: 0 }
+.steps li::before { content: counter(step); font-family: var(--display); font-size: 52px; font-weight: 600; line-height: 1; color: var(--accent) }
+.steps li:nth-child(1) { --accent: var(--yellow) }
+.steps li:nth-child(2) { --accent: var(--cyan) }
+.steps li:nth-child(3) { --accent: var(--pink) }
+.steps li > p:not(:has(.btn)) { font-size: 15px; line-height: 1.6; color: var(--muted) }
+.steps p code { word-break: break-all }
+
+/* Docs: reactive data */
+.reactive .lead { margin-bottom: clamp(28px, 4vw, 40px) }
+.reactive pre { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px 20px; line-height: 1.8 }
+.reactive .demo { border-radius: 16px }
+
+/* Docs: reference table */
+.reference article { border-radius: 20px; padding: clamp(22px, 3vw, 36px) }
+.reference figure { overflow-x: auto }
 table { width: 100%; border-collapse: collapse; font-size: 15px; text-align: left }
 th { padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--dim); border-bottom: 1px solid var(--line) }
 td { padding: 14px 16px; color: var(--muted); border-bottom: 1px solid var(--line) }
@@ -110,71 +152,42 @@ td:first-child { font-family: var(--mono); color: var(--cyan) }
 td:last-child { font-family: var(--mono); color: var(--yellow) }
 td i { font-family: Inter, system-ui, sans-serif; font-style: normal; color: var(--dim) }
 
-/* Examples and good to know */
-#examples > .grid { gap: 24px }
-#examples > .grid > ul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 12px; align-content: start }
-#examples li a { height: 100%; box-sizing: border-box; border: 1px solid var(--edge); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px }
-#examples li a:hover { border-color: var(--cyan); background: var(--panel) }
-#examples li a > :first-child:not(img) { font-family: var(--display); font-size: 38px; font-weight: 600; color: var(--yellow); line-height: 1 }
-#examples strong { font-size: 16px; font-weight: 600 }
-#examples li a > :last-child { font-family: var(--mono); font-size: 12px; color: var(--dim) }
-aside { background: var(--panel); border-radius: 18px; padding: clamp(22px, 3vw, 28px); display: flex; flex-direction: column; gap: 14px }
-aside h3 { font-family: var(--display); font-size: 24px }
-aside ul { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 14px; line-height: 1.55; color: var(--muted) }
+/* Docs: good to know */
+.notes ul { max-width: 720px; padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.6; color: var(--muted) }
 
-/* Closing call to action and footer */
-#install { padding-block: clamp(64px, 8vw, 96px); display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; border-top: 1px solid var(--line); background: radial-gradient(circle at 15% 100%, rgba(244,63,142,0.28), rgba(244,63,142,0) 45%), radial-gradient(circle at 90% 0%, rgba(34,211,238,0.28), rgba(34,211,238,0) 45%), var(--bg) }
-#install h2 { font-size: clamp(34px, 4.5vw, 48px) }
-#install pre { max-width: 100%; box-sizing: border-box; text-align: left }
-body > footer { padding: 24px var(--pad); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; font-size: 14px; color: var(--dim); border-top: 1px solid var(--line) }
-footer .wordmark { font-size: 20px; color: var(--text) }
-footer a { margin-left: auto; color: var(--muted); text-decoration: underline }
+/* Examples overview */
+.example-cards { list-style: none; padding: 0; margin-bottom: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px }
+.example-cards a { height: 100%; box-sizing: border-box; border: 1px solid var(--edge); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px }
+.example-cards a:hover { border-color: var(--cyan); background: var(--panel) }
+.example-cards a > :first-child:not(img) { font-family: var(--display); font-size: 38px; font-weight: 600; color: var(--yellow); line-height: 1 }
+.example-cards strong { font-size: 16px; font-weight: 600 }
+.example-cards a > :last-child { font-family: var(--mono); font-size: 12px; color: var(--dim) }
 
-/* The demo grid stacks below 820px; show the live demo above its code then */
-@media (max-width: 819px) {
-  #demo + p + .grid iframe { order: -1 }
-}
-@media (max-width: 720px) {
-  /* On phones, keep only the last two links: Install and GitHub */
-  body > header > nav ul:last-of-type li:not(:nth-last-child(-n+2)) { display: none }
-}
-
-/* demo.html: the live demos shown in the iframes */
-.embed { background: var(--paper); color: var(--ink) }
-.embed :focus-visible { outline-color: #0B7A96 }
-.embed rute { display: flex; flex-direction: column; gap: 14px; padding: 20px }
-.embed label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600 }
-.embed input { font: inherit; font-weight: 400; font-size: 16px; padding: 12px 14px; border: 1px solid #7A80A6; border-radius: 10px; background: #FFFFFF; color: var(--ink); min-height: 44px; box-sizing: border-box; width: 100% }
-.embed header { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; font-weight: 600; color: #4A5078 }
-.embed button { font: inherit; color: var(--ink); background: transparent; border: 1px solid #7A80A6; border-radius: 8px; padding: 10px 14px; min-height: 44px; cursor: pointer }
-.embed button:hover { background: #FFFFFF }
-.embed fieldset { margin: 0; padding: 0; border: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
-.embed p { font-family: var(--display); font-size: 30px; font-weight: 600; line-height: 1.2 }
-.embed span[data-bind] { color: #C81D6A }
-.embed span[data-compute] { color: #0B7A96 }
-.embed hr { margin: 0; border: 0; height: 1px; background: #D6D9EA }
-.embed small { font-size: 14px; color: #3A4068 }
-
-/* examples.html: the example templates, routed by rute */
-main > rute { display: block; min-height: 60vh; padding: clamp(36px, 6vw, 72px) var(--pad) var(--section) }
-main > rute h1 { font-size: clamp(32px, 4.2vw, 44px); letter-spacing: -0.02em; line-height: 1.1 }
-main > rute > h1 { margin-bottom: 24px }
-main > rute > ol { padding-left: 24px; display: flex; flex-direction: column; gap: 10px; font-size: 18px }
-main > rute a { color: var(--cyan) }
-main > rute a:hover { text-decoration: underline }
-main > rute nav ul { list-style: none; padding: 0; margin-bottom: 24px; display: flex; gap: 8px; font-size: 14px; color: var(--dim) }
-main > rute nav li + li::before { content: "›"; margin-right: 8px }
-main > rute article { display: flex; flex-direction: column; gap: 16px }
-main > rute article > header { font-family: var(--display); font-size: 22px; font-weight: 600 }
-main > rute .example { display: flex; flex-direction: column; gap: 12px }
-main > rute [role=group] { display: flex; gap: 8px }
-main > rute [role=group] button { flex: 1 }
-main > rute input { font: inherit; padding: 12px 14px; border: 1px solid var(--edge); border-radius: 10px; background: var(--bg); color: var(--text); min-height: 44px; box-sizing: border-box; width: 100% }
-main > rute button { font: inherit; font-weight: 600; padding: 12px 18px; border: 0; border-radius: 10px; background: var(--yellow); color: var(--ink); min-height: 44px; cursor: pointer }
-main > rute button:hover { filter: brightness(1.08) }
-main > rute hr { margin: 0; border: 0; height: 1px; background: var(--line) }
-main > rute article > footer { border-top: 1px solid var(--line); padding-top: 12px }
-main > rute summary { cursor: pointer; color: var(--dim); font-size: 14px }
-main > rute .code pre { margin-top: 12px; padding: 16px; border-radius: 12px; font-size: 13px; overflow-x: auto }
+/* Example pages (pages/examples/*.html) */
+.example-page h1 { font-size: clamp(32px, 4.2vw, 44px); letter-spacing: -0.02em; line-height: 1.1 }
+.example-page a { color: var(--cyan) }
+.example-page a:hover { text-decoration: underline }
+.example-page nav ul { list-style: none; padding: 0; margin-bottom: 24px; display: flex; gap: 8px; font-size: 14px; color: var(--dim) }
+.example-page nav li + li::before { content: "›"; margin-right: 8px }
+.example-page article { display: flex; flex-direction: column; gap: 16px }
+.example-page article > header { font-family: var(--display); font-size: 22px; font-weight: 600 }
+.example-page .example { display: flex; flex-direction: column; gap: 12px }
+.example-page [role=group] { display: flex; gap: 8px }
+.example-page [role=group] button { flex: 1 }
+.example-page input { font: inherit; padding: 12px 14px; border: 1px solid var(--edge); border-radius: 10px; background: var(--bg); color: var(--text); min-height: 44px; box-sizing: border-box; width: 100% }
+.example-page button { font: inherit; font-weight: 600; padding: 12px 18px; border: 0; border-radius: 10px; background: var(--yellow); color: var(--ink); min-height: 44px; cursor: pointer }
+.example-page button:hover { filter: brightness(1.08) }
+.example-page hr { margin: 0; border: 0; height: 1px; background: var(--line) }
+.example-page article > footer { border-top: 1px solid var(--line); padding-top: 12px }
+.example-page summary { cursor: pointer; color: var(--dim); font-size: 14px }
+.example-page .code pre { margin-top: 12px; padding: 16px; border-radius: 12px; font-size: 13px; overflow-x: auto }
 /* The dice is a clickable heading with role="button" in its template */
-main > rute h1[role=button] { font-size: clamp(32px, 4.2vw, 44px); text-align: center; cursor: pointer; padding: 14px 22px; border-radius: 10px; background: var(--yellow); color: var(--ink) }
+.example-page h1[role=button] { text-align: center; cursor: pointer; padding: 14px 22px; border-radius: 10px; background: var(--yellow); color: var(--ink) }
+
+/* Shown by rute's 404 attribute */
+.not-found { display: flex; flex-direction: column; gap: 16px }
+
+/* Live demo above its code once the demo grid stacks (below 820px) */
+@media (max-width: 819px) {
+  .reactive .demo { order: -1 }
+}

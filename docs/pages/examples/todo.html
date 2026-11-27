@@ -1,23 +1,28 @@
 <style>
     article {
-        max-width: 400px;
+        max-width: 600px;
     }
     article header {
         font-weight: bold;
     }
 </style>
 
+<section class="example-page">
 <nav aria-label="breadcrumb">
   <ul>
-    <li><a href="#">Home</a></li>
-    <li>Dice</li>
+    <li><a href="#examples">Examples</a></li>
+    <li>Todo</li>
   </ul>
 </nav>
 
 <article>
-    <header>Dice</header>
+    <header>Todo list</header>
     <div class="example">
-        <h1 role="button" data-bind="dice" onclick="dice = 'Rolling...'; setTimeout(() => dice = Math.floor(Math.random() * 6) + 1, 300)">Roll dice</h1>
+<template data-bind="todos">[]</template>
+<input data-bind="todo" placeholder="Add a todo">
+<button onclick="todos = [...todos, todo]">Add</button>
+<hr>
+<p data-compute="computedTodos">`Todos: ${(todos || []).join(", ")}`</p>
     </div>
     <footer>
         <details>
@@ -26,6 +31,7 @@
         </details>
     </footer>
 </article>
+</section>
 
 <script type="module">
     import { codeToHtml } from 'https://esm.sh/shiki@3.20.0'

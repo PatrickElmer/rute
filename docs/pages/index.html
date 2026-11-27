@@ -1,0 +1,73 @@
+<section class="hero">
+  <div class="grid">
+    <div>
+      <h1>A reactive hash router.</h1>
+      <p class="tagline">Turn a folder of HTML templates into an app, with live data that survives reloads.</p>
+      <p class="lead">No dependencies, no build step — <a href="#docs">one script tag</a>, about 1.6 KB gzipped.</p>
+      <p>
+        <a href="#docs" class="btn">Get started</a>
+        <a href="#examples" class="btn outline">See examples</a>
+      </p>
+    </div>
+
+    <figure>
+      <figcaption><span>index.html</span><span><span aria-hidden="true">●</span> live</span></figcaption>
+      <pre><code><span class="t">&lt;input</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;</span>
+<span class="t">&lt;p&gt;</span>Hello, <span class="t">&lt;span</span> <span class="a">data-bind</span>=<span class="v">"username"</span><span class="t">&gt;&lt;/span&gt;</span>!<span class="t">&lt;/p&gt;</span></code></pre>
+      <div class="demo">
+        <label>Type your name <input data-bind="username" value="Rute"></label>
+        <p>Hello, <span data-bind="username"></span>!</p>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="features">
+  <header>
+    <p>Features</p>
+    <h2>rute does two things.</h2>
+  </header>
+  <div class="grid">
+    <article>
+      <p>01 · Routes</p>
+      <h3>Hash URLs to HTML templates</h3>
+      <p>Every hash change loads the matching template and swaps it into the page — no reload. This site is built
+        that way.</p>
+      <pre><code><span class="a">#/about</span>  <span class="c">→</span>  <span class="v">templates/about.html</span></code></pre>
+    </article>
+    <article>
+      <p>02 · Binds</p>
+      <h3>DOM elements to reactive values</h3>
+      <p>Bound elements stay in sync, and their values persist in <code>localStorage</code> per route, across
+        reloads.</p>
+      <pre><code><span class="t">&lt;span</span> <span class="a">data-bind</span>=<span class="v">"count"</span><span class="t">&gt;</span>0<span class="t">&lt;/span&gt;</span>
+<span class="t">&lt;button</span> <span class="a">onclick</span>=<span class="v">"count++"</span><span class="t">&gt;</span>+1<span class="t">&lt;/button&gt;</span></code></pre>
+    </article>
+  </div>
+  <ul class="perks">
+    <li><span aria-hidden="true">↻</span><strong>Automatic persistence</strong> Bound values are saved to
+      <code>localStorage</code> and restored on the next visit.</li>
+    <li><span aria-hidden="true">#/</span><strong>Scoped data</strong> Values are stored per route, so the same name on
+      two pages holds two values.</li>
+    <li><span aria-hidden="true">ƒ</span><strong>Computed values</strong> <code>data-compute</code> re-runs an
+      expression like <code>price * qty</code> whenever a value it reads changes.</li>
+    <li><span aria-hidden="true">x=</span><strong>Plain globals</strong> Bound values are variables: write
+      <code>count++</code> in an <code>onclick</code>.</li>
+    <li><span aria-hidden="true">&lt;/&gt;</span><strong>Scripts run</strong> Inline scripts in templates execute
+      when the page loads.</li>
+    <li><span aria-hidden="true">↗</span><strong>Any static host</strong> Templates are files fetched over HTTP, so
+      GitHub Pages is enough.</li>
+  </ul>
+</section>
+
+<section class="install">
+  <img src="logo.svg" width="88" height="88" alt="">
+  <h2>One script tag away.</h2>
+  <p class="lead">No install, no bundler, no config. Paste the snippet and start writing HTML.</p>
+  <pre><code id="snippet"><span class="t">&lt;rute&gt;&lt;/rute&gt;</span>
+<span class="t">&lt;script</span> <span class="a">src</span>=<span class="v">"https://cdn.jsdelivr.net/gh/PatrickElmer/rute@main/rute.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
+  <p>
+    <button type="button" class="btn" data-copy="snippet">Copy snippet</button>
+    <a href="#docs" class="btn outline">Read the docs</a>
+  </p>
+</section>

@@ -2,33 +2,23 @@
     article {
         max-width: 400px;
     }
-    article h1 {
-        text-align: center;
-    }
     article header {
-        font-weight: bold;
-    }
-    article button {
-        font-size: 1.4rem;
         font-weight: bold;
     }
 </style>
 
+<section class="example-page">
 <nav aria-label="breadcrumb">
   <ul>
-    <li><a href="#">Home</a></li>
-    <li>Counter</li>
+    <li><a href="#examples">Examples</a></li>
+    <li>Dice</li>
   </ul>
 </nav>
 
 <article>
-    <header>Counter</header>
+    <header>Dice</header>
     <div class="example">
-<h1 data-bind="count">0</h1>
-<div role="group">
-    <button onclick="count++">+</button>
-    <button onclick="count--">−</button>
-</div>
+        <h1 role="button" data-bind="dice" onclick="dice = 'Rolling...'; setTimeout(() => dice = Math.floor(Math.random() * 6) + 1, 300)">Roll dice</h1>
     </div>
     <footer>
         <details>
@@ -37,6 +27,7 @@
         </details>
     </footer>
 </article>
+</section>
 
 <script type="module">
     import { codeToHtml } from 'https://esm.sh/shiki@3.20.0'
